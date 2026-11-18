@@ -5,6 +5,7 @@ technologies, architecture, code, demo, risks and next steps.
 
 | Document | Purpose |
 |---|---|
+| [Visual app walkthrough](../README.md#5-demo--what-currently-works) | Five current app screenshots with explanations of the inputs, estimate, forecast chart and calculation |
 | [System architecture](architecture.md) | Offline model development, SQLite storage, export and public/local app execution |
 | [Data sources and cleaning](data-and-cleaning.md) | Variables, cleaning checks, exclusions, units, survey weights and source hashes |
 | [Model evaluation](evaluation.md) | XGBoost graph, baseline comparisons, test periods, subgroup errors and household limitations |

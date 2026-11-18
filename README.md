@@ -215,22 +215,63 @@ These checks establish implementation consistency separately from predictive acc
 
 ## 5. Demo — what currently works
 
-[Open HomePulse](https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/) and:
+[Open HomePulse](https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/) to try
+the same walkthrough. These screenshots were captured from the published app on
+November 17, 2026. The example uses **Massachusetts, November 2026, a 1,000 sq ft
+apartment in a building with 5+ apartments**.
 
-1. Choose a state using the clickable U.S. map or dropdown.
-2. Select an available month in **September–November 2026**.
-3. Select the home type and enter the floor area of the user's own home or apartment.
-4. View the monthly estimate, state-account comparison, survey support and Plotly charts.
-5. Open **How it works** or download the estimate report.
+### 5.1 Choose a location and month
 
-Apartment categories describe **apartments in the building**, not bedrooms. For a
-large building, users select “5+ apartments” and enter only their own unit's floor area.
+![HomePulse location map with Massachusetts selected and November 2026 chosen](docs/images/demo/01-location.jpg)
 
-**Example:** Massachusetts, November 2026, apartment in a building with 5+ apartments,
-1,000 sq ft → approximately **338 kWh/month**, compared with **479 kWh** per state
-residential account. The profile uses **149 Northeast survey homes** after the state
-sample fails the support rule. This is an illustrative planning result, not a measured
-bill or a validated precise estimate for that apartment.
+Click a state on the interactive **Plotly U.S. map**, or select it from the dropdown.
+The selected state is highlighted in mint. Choose an available month from
+**September–November 2026**. These choices load the corresponding saved state forecast
+and update the estimate and charts. The screenshot shows Massachusetts and November.
+
+### 5.2 Describe the home and check its comparison group
+
+![Apartment type and 1,000 square foot input alongside the supporting survey group](docs/images/demo/02-home-details.jpg)
+
+Choose a home type and enter the floor area of the **individual home or apartment**,
+then click **Update my estimate**. “5+ apartments” means the number of apartments in
+the building, not bedrooms; 1,000 sq ft refers to this apartment alone. The support
+panel shows **149 comparable Northeast survey homes**. A regional group is used
+because the matching Massachusetts sample is too small. Survey weights are applied
+when calculating the comparison factor.
+
+### 5.3 Read the estimate and compare it with the state average
+
+![Monthly apartment estimate of 338 kWh compared with the state account average of 479 kWh](docs/images/demo/03-estimate.jpg)
+
+This example produces approximately **338 kWh for the selected month**, compared
+with **479 kWh per residential account** in the state. The Plotly bars show the
+forecast state average in blue and the adjusted home profile in mint—about **29%
+below** the state average. Both values are estimates. The household result is a
+planning scenario based on a state forecast and historical survey profiles; it is
+not a measured bill or a validated prediction for this individual apartment.
+
+### 5.4 Explore the state's electricity outlook
+
+![Massachusetts residential electricity outlook with recorded sales and a labeled forecast boundary](docs/images/demo/04-electricity-outlook.jpg)
+
+The blue line shows **recorded monthly residential electricity sales** for the whole
+state. The mint dashed line shows the saved **September–November 2026 forecasts**.
+August connects to September with a dashed segment, and **Forecast begins** marks
+the first forecast month. Hover over the Plotly chart to inspect monthly values.
+The vertical axis is **MWh for all residential accounts in the state**, whereas the
+home estimate above is **kWh for one home profile**.
+
+### 5.5 Understand the calculation and save the result
+
+![HomePulse How it works page explaining the location, home profile and household scenario formula](docs/images/demo/05-how-it-works.jpg)
+
+The **How it works** page explains the three user steps and the calculation:
+state forecast × 1,000 ÷ residential accounts × home-profile factor. It also provides
+data-source links and explains the research snapshot and comparison rules. Return
+to **Estimate** and choose **Download this estimate** to save a JSON report containing
+the selected profile, calculation results, snapshot date and source links. User
+entries stay in the browser.
 
 To run the same prepared interface locally:
 

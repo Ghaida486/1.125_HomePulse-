@@ -7,13 +7,17 @@ from pathlib import Path
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--project', type=Path, required=True)
+parser.add_argument('--database', type=Path, help='Existing SQLite snapshot; defaults to PROJECT/data/homepulse_monthly.sqlite')
 args = parser.parse_args()
 sys.path.insert(0, str(args.project / 'src'))
 from homepulse.monthly import load_store, profile_adjustment, estimate_home, STATES, SIZE_LABELS, HOME_TYPES
+from homepulse.peer_matching import SurveyProfileMatcher, ProfileSupportError
 from plotly.offline import get_plotlyjs
 
 root = Path(__file__).resolve().parents[1]
-store = load_store(args.project / 'data/homepulse_monthly.sqlite')
+database = args.database or args.project / 'data/homepulse_monthly.sqlite'
+store = load_store(database)
+matcher = SurveyProfileMatcher(store['profiles'])
 profiles, fixtures = {}, []
 areas = [500, 1000, 1800, 2200, 3000, 4000]
 for state in STATES:
@@ -21,12 +25,13 @@ for state in STATES:
         for band, area in zip(SIZE_LABELS, areas):
             key = f'{state}|{kind}|{band}'
             try:
-                profiles[key] = profile_adjustment(store['profiles'], state, kind, area)
+                profiles[key] = profile_adjustment(store['profiles'], state, kind, area, matcher=matcher)
                 for month in store['metadata']['estimate_months']:
-                    result = estimate_home(store, state, month, kind, area)
+                    result = estimate_home(store, state, month, kind, area, matcher=matcher)
                     fixtures.append({k: result[k] for k in ['state','month','area_sqft','estimate_kwh','account_kwh','seasonal_estimate_kwh','factor']} | {'kind': kind})
-            except ValueError as e:
-                profiles[key] = {'unavailable': str(e)}
+            except ProfileSupportError as e:
+                profiles[key] = {'unavailable': str(e), 'matching_attempts': e.attempts,
+                                 'support_policy': dict(matcher.policy)}
 
 obs = store['monthly_observations'].sort_values('date').groupby('state').tail(24)
 payload = {
@@ -35,7 +40,8 @@ payload = {
     'history': obs[['state','date','sales_mwh']].to_dict('records'),
     'metadata': {k: v for k, v in store['metadata'].items() if k not in ('historical_test', 'selected_model')},
     'snapshot_date': '2026-11-16',
-    'source_db_sha256': hashlib.sha256((args.project/'data/homepulse_monthly.sqlite').read_bytes()).hexdigest(),
+    'schema_version': 2,
+    'source_db_sha256': hashlib.sha256(database.read_bytes()).hexdigest(),
 }
 evidence = {
     'test_predictions': store['test_predictions'][['state','date','sales_mwh','xgboost','same_month_three_year_mean']].to_dict('records'),

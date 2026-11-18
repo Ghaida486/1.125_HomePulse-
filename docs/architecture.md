@@ -1,6 +1,6 @@
 # HomePulse architecture — public web app and offline model
 
-Updated November 16, 2026. The public app is `web-app-20261116/dist/`.
+Updated November 18, 2026. The public app is `web-app-20261116/dist/`.
 `app.py` → `homepulse.monthly_ui` remains the local Streamlit development prototype.
 The original annual workspace remains separate.
 
@@ -27,15 +27,17 @@ flowchart TD
     R[RECS 2020 household CSV] --> Q[pandas profile preparation<br/>survey weights, types and size bands]
     Q --> DB
   end
-  DB --> EX[Offline aggregate JSON export]
+  DB --> MATCH[SurveyProfileMatcher<br/>Validated records and cached weighted groups<br/>State → region → US decision trail]
+  MATCH --> EX[Offline aggregate JSON export, schema 2]
   EX --> PUB[Public forecast and profile snapshot]
   EX --> EV[Repository-only model evaluation evidence]
   subgraph Runtime[Public web app — no model training]
     U[State, month, home type and size] --> UI[HTML/CSS/JavaScript interface]
-    PUB --> L[Look up forecast and supported profile]
+    PUB --> CHECK[Validate coverage, cutoff and profile contracts]
+    CHECK --> L[Look up forecast and supported profile]
     UI --> L
     L --> H[Calculate monthly household scenario]
-    H --> O[Estimate, map and Plotly comparison charts]
+    H --> O[Estimate, map and Plotly charts<br/>Calculation trace and matching decisions]
     O --> UI
   end
 ```
@@ -77,6 +79,8 @@ The monthly database contains:
 
 The public app loads `web-app-20261116/dist/assets/homepulse-data.json`.
 `dist/app.js` handles the map and form; `dist/model.js` calculates the estimate.
+`dist/evidence-view.js` renders the calculation and geography decision trail.
+`src/homepulse/peer_matching.py` validates and summarizes the survey profiles offline.
 The exporter aggregates RECS profiles; it does not publish individual survey records.
 The browser needs neither SQLite access nor a model file. Model names, test scores
 and evaluation charts are absent from the public interface. Those remain in
@@ -130,3 +134,17 @@ same source/schema checks in a separately versioned build. Keep the inspected te
 results and earlier snapshot, evaluate a new period for future changes, and promote
 new artifacts only after checks pass. Re-export and publish the public snapshot after verification. Restart the local
 Streamlit prototype when replacing its database so cached data is refreshed. No automatic scheduled retraining is implemented.
+
+## Evidence and failure boundaries
+
+The matching engine distinguishes insufficient sample support from malformed source
+data. Only the former creates an unavailable profile in the snapshot; the latter
+stops export. Each profile contains a decision trail and the two weighted means that
+produce its factor. The browser checks these contracts before enabling the app.
+It checks the selected forecast again, rejecting duplicate rows or invalid numbers.
+
+The public calculation and the downloaded report carry the same evidence. Invalid
+inputs remove the previous estimate and evidence together to avoid a stale result.
+The [code walkthrough](code-walkthrough.md) documents the functions and failure tests.
+No model is retrained by this change; the monthly household result remains a planning
+scenario with separate validation work outstanding.

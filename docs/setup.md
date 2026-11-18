@@ -30,7 +30,7 @@ python scripts/download_monthly_sources.py
 python experiments/state-forecast-20261113/run_experiment.py
 python experiments/state-forecast-20261113/verify_and_report.py --checks-only
 python scripts/build_monthly.py --source-project . --output-project .
-pytest -q tests/test_monthly.py tests/test_monthly_map.py
+pytest -q tests/test_peer_matching.py tests/test_monthly.py tests/test_monthly_map.py
 streamlit run app.py --server.address 127.0.0.1
 ```
 
@@ -76,7 +76,7 @@ The annual workspace needs its own databases and models; without them it shows a
 preparation message. Its trained artifacts are not required by the monthly app.
 
 The complete local regression suite covers both workspaces; `pytest -q` therefore
-requires the older annual fixtures too. `pytest -q tests/test_monthly.py tests/test_monthly_map.py` is the current
+requires the older annual fixtures too. `pytest -q tests/test_peer_matching.py tests/test_monthly.py tests/test_monthly_map.py` is the current
 monthly acceptance suite and is run during the clean monthly rebuild.
 
 
@@ -85,9 +85,22 @@ monthly acceptance suite and is run during the clean monthly rebuild.
 ```bash
 python3 scripts/check_submission.py
 node web-app-20261116/scripts/verify.mjs
+node web-app-20261116/scripts/verify-contracts.mjs
 ```
 
 The first checks the selected repository files and report consistency; the second
 checks browser calculations against the saved Python reference cases. These checks
 do not measure individual household predictive accuracy. Python monthly tests need
 the generated database, while the portable snapshot checks do not.
+
+## Refresh aggregate browser evidence
+
+After the database exists, regenerate the public aggregate summaries and reference
+scenarios using the current Python matcher, then run both Node checks above:
+
+```bash
+python web-app-20261116/scripts/export_snapshot.py --project .
+```
+
+Use `--database /path/to/homepulse_monthly.sqlite` to read an existing snapshot
+without copying it into this checkout. Individual household records are not exported.

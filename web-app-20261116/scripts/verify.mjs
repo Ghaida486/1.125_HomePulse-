@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-import {estimate,sizeBand} from '../dist/model.js';
+import {estimate,sizeBand,validateSnapshot} from '../dist/model.js';
 const root=new URL('../',import.meta.url);
 const data=JSON.parse(fs.readFileSync(new URL('dist/assets/homepulse-data.json',root)));
+validateSnapshot(data);
 const evidence=JSON.parse(fs.readFileSync(new URL('evidence/model-results.json',root)));
 const cases=JSON.parse(fs.readFileSync(new URL('scripts/parity-fixtures.json',root)));
 for(const c of cases){const actual=estimate(data,c.state,c.month,c.kind,c.area_sqft);for(const key of ['estimate_kwh','account_kwh','seasonal_estimate_kwh','factor'])assert.ok(Math.abs(actual[key]-c[key])<1e-8,`${key} differs for ${JSON.stringify(c)}`)}
@@ -16,4 +17,4 @@ const y=evidence.test_predictions.map(x=>x.sales_mwh),mean=y.reduce((a,b)=>a+b,0
 const r2=1-evidence.test_predictions.reduce((s,x)=>s+(x.sales_mwh-x.xgboost)**2,0)/y.reduce((s,x)=>s+(x-mean)**2,0);
 assert.ok(Math.abs(r2-evidence.historical_test.xgboost.pooled_r2)<1e-12);
 assert.equal('test_predictions' in data,false);assert.equal('state_metrics' in data,false);assert.equal('historical_test' in data.metadata,false);
-console.log(JSON.stringify({status:'passed',python_parity_cases:cases.length,unsupported_groups_checked:unsupported,state_month_test_rows:1632,recomputed_pooled_r2:r2,household_rows_exported:0},null,2));
+console.log(JSON.stringify({status:'passed',python_parity_cases:cases.length,unsupported_groups_checked:unsupported,state_month_test_rows:1632,snapshot_schema_validated:data.schema_version,recomputed_pooled_r2:r2,household_rows_exported:0},null,2));

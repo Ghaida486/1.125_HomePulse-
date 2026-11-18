@@ -8,6 +8,7 @@ data/sources/eia_monthly_state_sales.xlsx
 data/sources/monthly_residential_sales_2010_2026.csv
 docs/README.md
 docs/architecture.md
+docs/code-walkthrough.md
 docs/data-and-cleaning.md
 docs/evaluation.md
 docs/feedback-response-20261114.md
@@ -18,6 +19,7 @@ docs/images/demo/02-home-details.jpg
 docs/images/demo/03-estimate.jpg
 docs/images/demo/04-electricity-outlook.jpg
 docs/images/demo/05-how-it-works.jpg
+docs/images/demo/06-calculation-evidence.png
 docs/references/recs2020_codebook_v7.xlsx
 docs/setup-check-20261114/rebuild-verification.json
 docs/setup-verification-20261114.md
@@ -98,6 +100,7 @@ src/homepulse/location_estimator.py
 src/homepulse/monthly.py
 src/homepulse/monthly_map.py
 src/homepulse/monthly_ui.py
+src/homepulse/peer_matching.py
 src/homepulse/practical.py
 src/homepulse/practical_training.py
 src/homepulse/practical_ui.py
@@ -110,6 +113,7 @@ tests/test_home_profile.py
 tests/test_location_estimator.py
 tests/test_monthly.py
 tests/test_monthly_map.py
+tests/test_peer_matching.py
 tests/test_pipeline.py
 tests/test_practical.py
 web-app-20261116/.gitignore
@@ -119,6 +123,7 @@ web-app-20261116/dist/assets/homepulse-data.json
 web-app-20261116/dist/assets/icon.svg
 web-app-20261116/dist/assets/plotly.min.js
 web-app-20261116/dist/assets/usa_110m.json
+web-app-20261116/dist/evidence-view.js
 web-app-20261116/dist/index.html
 web-app-20261116/dist/model.js
 web-app-20261116/dist/styles.css
@@ -126,4 +131,5 @@ web-app-20261116/evidence/model-results.json
 web-app-20261116/package.json
 web-app-20261116/scripts/export_snapshot.py
 web-app-20261116/scripts/parity-fixtures.json
+web-app-20261116/scripts/verify-contracts.mjs
 web-app-20261116/scripts/verify.mjs

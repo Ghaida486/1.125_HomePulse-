@@ -2,7 +2,7 @@
 
 **Household electricity planning · Midpoint implementation progress**  
 Ghaida Aljuhani · MIT 1.125: Architecting and Engineering Software Systems  
-Updated November 17, 2026
+Updated November 18, 2026
 
 [Open the working app](https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/) · [Installation and reproduction](docs/setup.md) · [Detailed architecture](docs/architecture.md) · [Supporting documents](docs/README.md)
 
@@ -88,11 +88,13 @@ flowchart TD
     RECS["RECS 2020 household data"] --> PROFILES["pandas: survey-weighted<br/>home type and size profiles"]
     PROFILES --> DB
 
-    DB --> EXPORT["Export aggregate JSON snapshot"]
-    EXPORT --> WEB["Public HTML / CSS / JavaScript app"]
+    DB --> MATCH["Survey matcher: validate records<br/>weighted summaries + support decision trail"]
+    MATCH --> EXPORT["Export aggregate JSON snapshot"]
+    EXPORT --> CHECK["Validate snapshot contracts<br/>cutoffs, coverage and matching evidence"]
+    CHECK --> WEB["Public HTML / CSS / JavaScript app"]
     USER["State + month + home type + floor area"] --> WEB
     WEB --> CALC["State forecast per account<br/>x household profile factor"]
-    CALC --> VIEW["Monthly kWh estimate<br/>Plotly map and comparison charts"]
+    CALC --> VIEW["Monthly kWh estimate<br/>Plotly charts + calculation and matching evidence"]
     DB --> STREAMLIT["Local Streamlit development prototype"]
 ```
 
@@ -107,6 +109,9 @@ interface stages are all represented. The published interface now uses JavaScrip
 Streamlit remains available as the local development prototype.
 
 ## 4. Code — what has been implemented
+
+For the important functions, engineering decisions and tests, see the
+[code walkthrough](docs/code-walkthrough.md).
 
 ### A. Data preparation and validation
 
@@ -223,7 +228,13 @@ occupied homes are different populations. The result is a **household planning
 scenario** whose individual monthly accuracy requires separate validation; the
 state forecast's R² does not establish that accuracy.
 
-Relevant code: [Python calculation](src/homepulse/monthly.py),
+The comparison engine now records the rejected and selected geography attempts,
+validates the survey records and caches weighted group summaries. Browser checks
+reject inconsistent forecasts, factors or support decisions before displaying an
+estimate. See [matching and validation details](docs/code-walkthrough.md).
+
+Relevant code: [survey matcher](src/homepulse/peer_matching.py),
+[Python calculation](src/homepulse/monthly.py),
 [SQLite-to-web export](web-app-20261116/scripts/export_snapshot.py),
 [browser calculation](web-app-20261116/dist/model.js)
 and [public interface](web-app-20261116/dist/app.js).
@@ -263,7 +274,10 @@ for subgroup errors, weights, uncertainty and full results.
 
 **Software checks completed:**
 
-- **10 Python monthly/map tests** passed in the existing project environment.
+- **23 Python matching/monthly/map tests** passed in the existing project environment.
+- **24 deliberately corrupted snapshots** are rejected by the browser data contracts.
+- All **3,366 previous-release scenarios** are numerically unchanged; the new evidence
+  exposes existing calculations and adds integrity checks, not an accuracy claim.
 - **3,366 supported browser calculations** match saved Python reference results.
 - **408 unsupported profile groups** and invalid-input boundaries are checked.
 - All **153 exported forecasts** match the report CSV; all **1,632 exported test rows**
@@ -332,6 +346,18 @@ data-source links and explains the research snapshot and comparison rules. Retur
 to **Estimate** and choose **Download this estimate** to save a JSON report containing
 the selected profile, calculation results, snapshot date and source links. User
 entries stay in the browser.
+
+### 5.6 Inspect the calculation and geographic fallback
+
+![Calculation and matching evidence in the November 18 local preview](docs/images/demo/06-calculation-evidence.png)
+
+Expand **See the calculation & matching evidence** below the estimate. Four steps
+show the state forecast, the account average, the survey factor and the final kWh.
+The decision table explains why Massachusetts' **17 matching homes** fail the support
+rules and the **149 Northeast homes** are used instead. Its effective count also
+checks whether a few large survey weights dominate the sample. The download includes
+this decision trail and the database checksum. This image was captured from the
+tested local November 18 update; the earlier walkthrough images show the November 17 release.
 
 To run the same prepared interface locally:
 

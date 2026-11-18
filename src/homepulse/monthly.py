@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from .config import ROOT
+from .peer_matching import SurveyProfileMatcher
 
 DATABASE = ROOT / "data/homepulse_monthly.sqlite"
 REPORTS = ROOT / "reports/monthly"
@@ -40,42 +41,24 @@ def size_band(area):
     return SIZE_LABELS[int(np.searchsorted(SIZE_EDGES, area, side="right") - 1)]
 
 
-def profile_adjustment(profiles, state, home_type, area):
-    """Joint type-size weighted means, with disclosed geography fallback.
-
-    No independent multipliers are multiplied together, no model is fitted,
-    and low-support groups do not silently produce personalized estimates.
-    """
-    if state not in STATES or home_type not in HOME_TYPES:
+def profile_adjustment(profiles, state, home_type, area, *, matcher=None):
+    """Match a joint type-size group and retain the support decision trail."""
+    if state not in STATES or isinstance(home_type, bool) or home_type not in HOME_TYPES:
         raise ValueError("Choose a supported state and house type.")
-    band = size_band(area)
-    region = STATES[state]["region"]
-    scopes = [("State", STATES[state]["name"], profiles.loc[profiles.state == state]),
-              ("Region", region, profiles.loc[profiles.region == region]),
-              ("United States", "United States", profiles)]
-    for level, geography, reference in scopes:
-        peers = reference.loc[(reference.home_type == home_type) & (reference.size_band == band)]
-        weights = peers.weight.to_numpy(dtype=float)
-        neff = float(weights.sum() ** 2 / np.square(weights).sum()) if len(weights) else 0.
-        if len(peers) < MIN_SAMPLE or neff < MIN_EFFECTIVE_SAMPLE:
-            continue
-        profile_mean = float(np.average(peers.kwh, weights=weights))
-        reference_mean = float(np.average(reference.kwh, weights=reference.weight))
-        return {"factor": profile_mean / reference_mean, "sample_n": len(peers),
-                "effective_n": neff, "level": level, "geography": geography,
-                "size_band": band, "profile_mean_annual_kwh": profile_mean,
-                "reference_mean_annual_kwh": reference_mean}
-    raise ValueError("Too few comparable survey homes for this house type and size. Try a better-supported profile; no estimate has been calculated.")
+    matcher = matcher or SurveyProfileMatcher(profiles, MIN_SAMPLE, MIN_EFFECTIVE_SAMPLE)
+    return matcher.match(state=state, state_name=STATES[state]["name"],
+                         region=STATES[state]["region"], home_type=home_type,
+                         size_band=size_band(area))
 
 
-def estimate_home(store, state, month, home_type, area):
-    adj = profile_adjustment(store["profiles"], state, home_type, area)
+def estimate_home(store, state, month, home_type, area, *, matcher=None):
+    adj = profile_adjustment(store["profiles"], state, home_type, area, matcher=matcher)
     rows = store["forecasts"].loc[(store["forecasts"].state == state) & (store["forecasts"].month == month)]
     if len(rows) != 1:
         raise ValueError("Choose one of the supported estimate months.")
     row = rows.iloc[0]
-    if row.customer_count_assumption <= 0:
-        raise ValueError("A positive residential customer count is required.")
+    if not np.isfinite([row.xgboost_mwh, row.seasonal_mean_mwh, row.customer_count_assumption]).all() or min(row.xgboost_mwh, row.seasonal_mean_mwh, row.customer_count_assumption) <= 0:
+        raise ValueError("Forecast sales and residential customer counts must be finite and positive.")
     account_kwh = float(row.xgboost_mwh * 1000 / row.customer_count_assumption)
     benchmark_kwh = float(row.seasonal_mean_mwh * 1000 / row.customer_count_assumption)
     return {**adj, "state": state, "month": month, "home_type": HOME_TYPES[home_type],

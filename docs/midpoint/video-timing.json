@@ -1,0 +1,95 @@
+{
+  "totalSeconds": 290,
+  "spokenWords": 553,
+  "clips": [
+    {
+      "clip": "A",
+      "content": "Slides 1–9",
+      "seconds": 160
+    },
+    {
+      "clip": "B",
+      "content": "Live website; replaces slide 10",
+      "seconds": 65
+    },
+    {
+      "clip": "C",
+      "content": "Slides 11–12",
+      "seconds": 65
+    }
+  ],
+  "slides": [
+    {
+      "title": "HomePulse midpoint check-in",
+      "start": "0:00",
+      "end": "0:15",
+      "seconds": 15
+    },
+    {
+      "title": "Electricity planning before moving",
+      "start": "0:15",
+      "end": "0:35",
+      "seconds": 20
+    },
+    {
+      "title": "The data behind the estimate",
+      "start": "0:35",
+      "end": "0:50",
+      "seconds": 15
+    },
+    {
+      "title": "Working system architecture",
+      "start": "0:50",
+      "end": "1:05",
+      "seconds": 15
+    },
+    {
+      "title": "Technologies used in HomePulse",
+      "start": "1:05",
+      "end": "1:25",
+      "seconds": 20
+    },
+    {
+      "title": "Code: forecasting without the target answer",
+      "start": "1:25",
+      "end": "1:45",
+      "seconds": 20
+    },
+    {
+      "title": "Code: selecting a supported household comparison",
+      "start": "1:45",
+      "end": "2:05",
+      "seconds": 20
+    },
+    {
+      "title": "Code: validating the public calculation",
+      "start": "2:05",
+      "end": "2:25",
+      "seconds": 20
+    },
+    {
+      "title": "Predicted versus actual state sales",
+      "start": "2:25",
+      "end": "2:40",
+      "seconds": 15
+    },
+    {
+      "title": "Live app: estimate and matching evidence",
+      "start": "2:40",
+      "end": "3:45",
+      "seconds": 65
+    },
+    {
+      "title": "Remaining risks",
+      "start": "3:45",
+      "end": "4:10",
+      "seconds": 25
+    },
+    {
+      "title": "Next steps before the final submission",
+      "start": "4:10",
+      "end": "4:50",
+      "seconds": 40
+    }
+  ]
+}

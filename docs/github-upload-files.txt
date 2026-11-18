@@ -20,6 +20,11 @@ docs/images/demo/03-estimate.jpg
 docs/images/demo/04-electricity-outlook.jpg
 docs/images/demo/05-how-it-works.jpg
 docs/images/demo/06-calculation-evidence.png
+docs/midpoint/HomePulse_Deliverable_2_Final.pdf
+docs/midpoint/HomePulse_Deliverable_2_Final.pptx
+docs/midpoint/recording-checklist.txt
+docs/midpoint/video-script.md
+docs/midpoint/video-timing.json
 docs/references/recs2020_codebook_v7.xlsx
 docs/setup-check-20261114/rebuild-verification.json
 docs/setup-verification-20261114.md

@@ -5,6 +5,7 @@ technologies, architecture, code, demo, risks and next steps.
 
 | Document | Purpose |
 |---|---|
+| [Midpoint presentation and video script](midpoint/video-script.md) | Final PPTX with speaker notes, slides-only PDF, 4:50 narration and live-demo recording cues |
 | [Visual app walkthrough](../README.md#5-demo--what-currently-works) | Five current app screenshots with explanations of the inputs, estimate, forecast chart and calculation |
 | [Code walkthrough](code-walkthrough.md) | Forecast feature safeguards, survey matching, browser contracts and their challenge tests |
 | [System architecture](architecture.md) | Offline model development, SQLite storage, export and public/local app execution |
@@ -35,5 +36,5 @@ implement the guide's full replicate-weight uncertainty procedure.
 - [Household historical report](../reports/household-validation-20261115/household-validation-report.md)
 - [Apartment input experiment](../reports/apartment-inputs-20261116/apartment-input-report.md)
 
-Duplicate progress/checklist documents, the course handout, recording-preparation
-files and duplicate figure formats are excluded from the selected package.
+The current midpoint presentation and recording guide are included under `docs/midpoint/`.
+Older recording drafts, the course handout and duplicate figure formats are excluded.

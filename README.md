@@ -10,9 +10,15 @@ This README follows the midpoint structure provided by Abel and John: introducti
 pitch, technology, code, demo, risks and next steps. It describes the implementation
 completed so far and the evidence supporting it.
 
+**Midpoint recording materials:** [PowerPoint with speaker notes](docs/midpoint/HomePulse_Deliverable_2_Final.pptx),
+[slides-only PDF](docs/midpoint/HomePulse_Deliverable_2_Final.pdf) and
+[4–5-minute script with live-demo cues](docs/midpoint/video-script.md).
+The planned recording lasts 4:50, including a 1:05 live app demonstration.
+
 ## 1. Introduction — what I built
 
-HomePulse is a working web prototype for exploring household electricity use. A user
+HomePulse is a working web prototype for **renters and homebuyers across the United
+States** who want to explore electricity use before moving into a home. A user
 selects a **state, month, home type and floor area** to obtain a monthly electricity
 planning estimate and compare it with the forecast average per residential account
 in that state.
@@ -26,7 +32,7 @@ survey-based household comparisons, model evaluation, maps and charts.
 Someone considering a house or apartment may know its location, type and size but
 have no electricity history for that property. HomePulse makes those familiar details
 useful for comparing possible homes and exploring seasonal electricity patterns.
-Its intended users are prospective renters, homebuyers and people comparing home
+Its intended users are U.S. renters, homebuyers and people comparing home
 profiles for early planning.
 
 The approach combines **state electricity forecasts** with **historical household
@@ -382,13 +388,19 @@ The annual diagnostic's nominal 80% interval achieved 80.2% coverage, but was br
 
 ## 7. Next steps — before the final project
 
-1. Define a practical household error tolerance and strengthen validation of the final
-   household output, including differences by home type and region.
-2. Evaluate any model or baseline change on a separately planned period or compatible
-   independent data; retain the existing results for comparison.
-3. Test usability with intended users, refine apartment explanations and verify the
-   app on additional screen sizes and devices.
-4. Preserve the remaining household source snapshot and check installation on another machine; the studied state workbook is now included.
+The following features and coding improvements are **planned for the final project**:
+
+1. **Compare Two Homes:** add two independent location/home profiles, linked charts
+   and a downloadable comparison report for exploring planning scenarios.
+2. **EIA API integration:** automate monthly updates with validation, dated source
+   snapshots and a fallback to the previous working snapshot if an update fails.
+3. **Stronger evaluation:** define a practical household error tolerance before further
+   model selection, compare state methods on a separately planned period or compatible
+   independent data, and examine household errors by home type and region.
+4. **Tested uncertainty ranges:** evaluate state-forecast interval coverage separately
+   from household uncertainty. State results do not establish individual-home accuracy.
+5. **Automated tests and reproducibility:** run existing and new checks through GitHub
+   Actions, verify a fresh installation and test usability across devices with intended users.
 
 **Midpoint status:** the data pipeline, modelling workflow, saved forecasts, household
 profile calculation and public prototype are implemented. The principal remaining

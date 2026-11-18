@@ -1,0 +1,2 @@
+# Optional chart dependency. Install into a temporary --target, not the app.
+matplotlib==3.11.2

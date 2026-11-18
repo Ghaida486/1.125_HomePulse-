@@ -1,0 +1,20 @@
+{
+  "source_database": "/Users/ghaidaaljuhani/Desktop/MIT/1.125/Project/HomePulse/data/homepulse_monthly.sqlite",
+  "database_sha256": "27c55b2ff85a37b629e6889197f9b4b6650f7ede226d055f73638c3eb7342a1f",
+  "points_plotted": 1632,
+  "states_including_dc": 51,
+  "months_per_state": 32,
+  "test_rows_removed": 0,
+  "xgboost": {
+    "r2": 0.9902358247446271,
+    "mae_mwh": 151476.9622449023,
+    "wape": 0.06085878396149902
+  },
+  "seasonal_benchmark": {
+    "r2": 0.992415697733024,
+    "mae_mwh": 133306.41028594773,
+    "wape": 0.053558415115024974
+  },
+  "model_retrained": false,
+  "matches_saved_evaluation": true
+}

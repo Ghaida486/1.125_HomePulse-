@@ -1,0 +1,8 @@
+{
+  "metric_rows_recomputed_independently": 26,
+  "all_metrics_match": true,
+  "selections_match_validation_mae": true,
+  "evaluation_count": 690,
+  "paired_count": 659,
+  "no_live_app_changes": true
+}

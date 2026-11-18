@@ -1,0 +1,103 @@
+{
+  "experiment": "Apartment bedrooms, building age and heating fuel",
+  "date": "2026-11-16",
+  "target": "Annual RECS 2020 household KWH",
+  "split_source": "/Users/ghaidaaljuhani/Desktop/MIT/1.125/Project/HomePulse/experiments/household-validation-20261115/results/household-split-ids.csv",
+  "split_sha256": "206da4c53db04a4c2f10d156dc36580c490594746617f4a33ef8935e85e2d0da",
+  "raw_sha256": "8d5f6d3120d2cbc2535151c7d455e7a536ca9768f773e15edd45932ec38b3592",
+  "script_sha256": "33c05c8820c6da4892b4daf55018a8dcef69be8286ef2044f5d31ca98f8473e9",
+  "seed": 20261116,
+  "variants": {
+    "core": [
+      "state_postal",
+      "TYPEHUQ",
+      "TOTSQFT_EN"
+    ],
+    "bedrooms": [
+      "state_postal",
+      "TYPEHUQ",
+      "TOTSQFT_EN",
+      "BEDROOMS"
+    ],
+    "building_age": [
+      "state_postal",
+      "TYPEHUQ",
+      "TOTSQFT_EN",
+      "YEARMADERANGE"
+    ],
+    "heating_fuel": [
+      "state_postal",
+      "TYPEHUQ",
+      "TOTSQFT_EN",
+      "FUELHEAT"
+    ],
+    "all_three": [
+      "state_postal",
+      "TYPEHUQ",
+      "TOTSQFT_EN",
+      "BEDROOMS",
+      "YEARMADERANGE",
+      "FUELHEAT"
+    ]
+  },
+  "settings": [
+    {
+      "max_depth": 2,
+      "n_estimators": 200,
+      "learning_rate": 0.05,
+      "min_child_weight": 20,
+      "reg_lambda": 10
+    },
+    {
+      "max_depth": 3,
+      "n_estimators": 300,
+      "learning_rate": 0.04,
+      "min_child_weight": 15,
+      "reg_lambda": 10
+    },
+    {
+      "max_depth": 4,
+      "n_estimators": 300,
+      "learning_rate": 0.04,
+      "min_child_weight": 10,
+      "reg_lambda": 10
+    },
+    {
+      "max_depth": 3,
+      "n_estimators": 500,
+      "learning_rate": 0.025,
+      "min_child_weight": 15,
+      "reg_lambda": 20
+    }
+  ],
+  "maximum_fits": 20,
+  "primary_selection": "Minimum unweighted validation MAE, before evaluation",
+  "evaluation": "Full apartment evaluation cohort, plus paired supported cohort for current-method comparison",
+  "retention": "All eligible apartments retained; no outlier trimming or error-based exclusions",
+  "training": "Development apartments only; do not refit on validation after selection",
+  "success_rule": "All-three model: at least 10% lower MAE than core XGBoost and higher R2 on paired evaluation; exploratory threshold, not a guarantee of usefulness",
+  "missing_codes": "FUELHEAT -2 is the codebook's Not applicable category, not a negative fuel amount; age and home type categorical",
+  "weights": "Unweighted fitting/primary errors; NWEIGHT-weighted sensitivity evaluation. No population confidence intervals",
+  "caveats": [
+    "RECS data and evaluation results explored before; diagnostic, not fresh external validation",
+    "Former calibration partition is used for model selection here; no prediction interval is calibrated",
+    "Annual apartment scores cannot validate future monthly household estimates",
+    "Heating type here means main heating fuel, not furnace/heat-pump equipment type",
+    "Apartments in buildings with 5+ units remain a broad category; exact building count is unavailable"
+  ],
+  "packages": {
+    "pandas": "3.1.1",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "joblib": "1.6.0"
+  },
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "protected_files_before": {
+    "app.py": "461cc3c3c3d534bd5c6e799a47c2b2903652edf1e5ea0587ff79676d797ee771",
+    "src/homepulse/monthly.py": "9175ef2585443f3a4f7623d0b8fd56b31041cfb7737eaea0cbfa26c6df2689a2",
+    "src/homepulse/monthly_ui.py": "2c631e05766a99f83d89bb244e0a8fa7225a2a5fee6df027c645d4d1294f4036",
+    "data/homepulse_monthly.sqlite": "27c55b2ff85a37b629e6889197f9b4b6650f7ede226d055f73638c3eb7342a1f",
+    "data/raw/recs2020_public_v7.csv": "8d5f6d3120d2cbc2535151c7d455e7a536ca9768f773e15edd45932ec38b3592"
+  }
+}

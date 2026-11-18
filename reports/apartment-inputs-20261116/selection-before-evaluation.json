@@ -1,0 +1,121 @@
+{
+  "winner_by_validation": "all_three",
+  "variants": {
+    "core": {
+      "configuration": 1,
+      "settings": {
+        "max_depth": 3,
+        "n_estimators": 300,
+        "learning_rate": 0.04,
+        "min_child_weight": 15,
+        "reg_lambda": 10
+      },
+      "validation": {
+        "n": 691,
+        "r2": 0.2145616723960262,
+        "mae_kwh": 2661.0019865203285,
+        "rmse_kwh": 3606.717312576738,
+        "within_20_pct": 28.509406657018815
+      },
+      "features": [
+        "state_postal",
+        "TYPEHUQ",
+        "TOTSQFT_EN"
+      ]
+    },
+    "bedrooms": {
+      "configuration": 1,
+      "settings": {
+        "max_depth": 3,
+        "n_estimators": 300,
+        "learning_rate": 0.04,
+        "min_child_weight": 15,
+        "reg_lambda": 10
+      },
+      "validation": {
+        "n": 691,
+        "r2": 0.24437511043496718,
+        "mae_kwh": 2630.359712274444,
+        "rmse_kwh": 3537.6037601661424,
+        "within_20_pct": 26.483357452966715
+      },
+      "features": [
+        "state_postal",
+        "TYPEHUQ",
+        "TOTSQFT_EN",
+        "BEDROOMS"
+      ]
+    },
+    "building_age": {
+      "configuration": 1,
+      "settings": {
+        "max_depth": 3,
+        "n_estimators": 300,
+        "learning_rate": 0.04,
+        "min_child_weight": 15,
+        "reg_lambda": 10
+      },
+      "validation": {
+        "n": 691,
+        "r2": 0.20820001656420895,
+        "mae_kwh": 2665.1861292793506,
+        "rmse_kwh": 3621.2941548961326,
+        "within_20_pct": 29.088277858176554
+      },
+      "features": [
+        "state_postal",
+        "TYPEHUQ",
+        "TOTSQFT_EN",
+        "YEARMADERANGE"
+      ]
+    },
+    "heating_fuel": {
+      "configuration": 2,
+      "settings": {
+        "max_depth": 4,
+        "n_estimators": 300,
+        "learning_rate": 0.04,
+        "min_child_weight": 10,
+        "reg_lambda": 10
+      },
+      "validation": {
+        "n": 691,
+        "r2": 0.30047389371222943,
+        "mae_kwh": 2438.504814149274,
+        "rmse_kwh": 3403.752889110474,
+        "within_20_pct": 31.982633863965265
+      },
+      "features": [
+        "state_postal",
+        "TYPEHUQ",
+        "TOTSQFT_EN",
+        "FUELHEAT"
+      ]
+    },
+    "all_three": {
+      "configuration": 2,
+      "settings": {
+        "max_depth": 4,
+        "n_estimators": 300,
+        "learning_rate": 0.04,
+        "min_child_weight": 10,
+        "reg_lambda": 10
+      },
+      "validation": {
+        "n": 691,
+        "r2": 0.32559655584109515,
+        "mae_kwh": 2417.084595616916,
+        "rmse_kwh": 3342.073134081445,
+        "within_20_pct": 31.403762662807527
+      },
+      "features": [
+        "state_postal",
+        "TYPEHUQ",
+        "TOTSQFT_EN",
+        "BEDROOMS",
+        "YEARMADERANGE",
+        "FUELHEAT"
+      ]
+    }
+  }
+}

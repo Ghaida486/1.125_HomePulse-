@@ -1,0 +1,92 @@
+{
+  "winner_by_validation": "all_three",
+  "primary_comparison_n": 659,
+  "all_evaluation_n": 690,
+  "current_method_unsupported": 31,
+  "paired_results": [
+    {
+      "method": "current_method",
+      "cohort": "paired_supported",
+      "label": "Current household method",
+      "weighting": "unweighted",
+      "n": 659,
+      "r2": 0.1675853876938599,
+      "mae_kwh": 2648.1244467062706,
+      "rmse_kwh": 3723.0484339541463,
+      "within_20_pct": 27.769347496206375
+    },
+    {
+      "method": "regional_median",
+      "cohort": "paired_supported",
+      "label": "Apartment regional median",
+      "weighting": "unweighted",
+      "n": 659,
+      "r2": 0.06412193132384691,
+      "mae_kwh": 2734.589271623672,
+      "rmse_kwh": 3947.6484777093183,
+      "within_20_pct": 27.31411229135053
+    },
+    {
+      "method": "core",
+      "cohort": "paired_supported",
+      "label": "XGBoost: existing inputs",
+      "weighting": "unweighted",
+      "n": 659,
+      "r2": 0.20971385281426214,
+      "mae_kwh": 2640.4126285535613,
+      "rmse_kwh": 3627.6136142611253,
+      "within_20_pct": 27.921092564491655
+    },
+    {
+      "method": "bedrooms",
+      "cohort": "paired_supported",
+      "label": "XGBoost: + bedrooms",
+      "weighting": "unweighted",
+      "n": 659,
+      "r2": 0.2341902225671274,
+      "mae_kwh": 2619.713033538031,
+      "rmse_kwh": 3570.9954093733922,
+      "within_20_pct": 28.98330804248862
+    },
+    {
+      "method": "building_age",
+      "cohort": "paired_supported",
+      "label": "XGBoost: + building age",
+      "weighting": "unweighted",
+      "n": 659,
+      "r2": 0.2079526878217992,
+      "mae_kwh": 2641.8560327704145,
+      "rmse_kwh": 3631.6534615286632,
+      "within_20_pct": 28.072837632776938
+    },
+    {
+      "method": "heating_fuel",
+      "cohort": "paired_supported",
+      "label": "XGBoost: + heating fuel",
+      "weighting": "unweighted",
+      "n": 659,
+      "r2": 0.2946739878607063,
+      "mae_kwh": 2434.3938562363664,
+      "rmse_kwh": 3427.076420042792,
+      "within_20_pct": 30.652503793626707
+    },
+    {
+      "method": "all_three",
+      "cohort": "paired_supported",
+      "label": "XGBoost: + all three",
+      "weighting": "unweighted",
+      "n": 659,
+      "r2": 0.3246844140943346,
+      "mae_kwh": 2377.1092801741506,
+      "rmse_kwh": 3353.3757933007987,
+      "within_20_pct": 31.41122913505311
+    }
+  ],
+  "all_three_mae_improvement_over_core_pct": 9.972053062162878,
+  "all_three_r2_change_over_core": 0.11497056128007244,
+  "all_three_mae_improvement_over_current_pct": 10.234230754117613,
+  "provisional_rule_met": false,
+  "independent_external_validation": false,
+  "monthly_home_accuracy_validated": false,
+  "app_changed": false
+}

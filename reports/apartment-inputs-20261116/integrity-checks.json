@@ -1,0 +1,52 @@
+{
+  "production_unchanged": true,
+  "protected_files_after": {
+    "app.py": "461cc3c3c3d534bd5c6e799a47c2b2903652edf1e5ea0587ff79676d797ee771",
+    "src/homepulse/monthly.py": "9175ef2585443f3a4f7623d0b8fd56b31041cfb7737eaea0cbfa26c6df2689a2",
+    "src/homepulse/monthly_ui.py": "2c631e05766a99f83d89bb244e0a8fa7225a2a5fee6df027c645d4d1294f4036",
+    "data/homepulse_monthly.sqlite": "27c55b2ff85a37b629e6889197f9b4b6650f7ede226d055f73638c3eb7342a1f",
+    "data/raw/recs2020_public_v7.csv": "8d5f6d3120d2cbc2535151c7d455e7a536ca9768f773e15edd45932ec38b3592"
+  },
+  "target_excluded_from_features": true,
+  "poisoned_target_does_not_change_prediction": true,
+  "saved_pipeline_reproduces_predictions": true,
+  "preprocessing_fit_on_development_only": true,
+  "selection_uses_validation_only": true,
+  "no_refit_on_validation": true,
+  "no_test_based_tuning": true,
+  "feature_allowlist": {
+    "core": [
+      "state_postal",
+      "TYPEHUQ",
+      "TOTSQFT_EN"
+    ],
+    "bedrooms": [
+      "state_postal",
+      "TYPEHUQ",
+      "TOTSQFT_EN",
+      "BEDROOMS"
+    ],
+    "building_age": [
+      "state_postal",
+      "TYPEHUQ",
+      "TOTSQFT_EN",
+      "YEARMADERANGE"
+    ],
+    "heating_fuel": [
+      "state_postal",
+      "TYPEHUQ",
+      "TOTSQFT_EN",
+      "FUELHEAT"
+    ],
+    "all_three": [
+      "state_postal",
+      "TYPEHUQ",
+      "TOTSQFT_EN",
+      "BEDROOMS",
+      "YEARMADERANGE",
+      "FUELHEAT"
+    ]
+  },
+  "split_disjoint": true,
+  "no_error_based_removal": true
+}

@@ -1,0 +1,1 @@
+{"name":"homepulse-web","private":true,"type":"module","scripts":{"test":"node scripts/verify.mjs"}}

@@ -1,0 +1,20 @@
+{
+  "fresh_python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "fresh_homepulse_root": "/Users/ghaidaaljuhani/Documents/ChatGPT/1.125 Project/work/homepulse-readiness-20261114/source",
+  "all_1632_test_rows_exact_match": true,
+  "all_153_forecasts_exact_match": true,
+  "sqlite_integrity": "ok",
+  "table_counts": {
+    "monthly_observations": 10200,
+    "forecasts": 153,
+    "profiles": 17851,
+    "test_predictions": 1632,
+    "test_state_metrics": 204,
+    "metadata": 1
+  },
+  "demo_estimate_kwh": 514.8599951905443,
+  "sources_downloaded_from_eia": true,
+  "source_hashes_verified": true,
+  "model_reselection_rules_changed": false,
+  "data_or_model_artifacts_copied_from_original": false
+}

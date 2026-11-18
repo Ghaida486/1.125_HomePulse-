@@ -1,0 +1,11 @@
+{
+  "all_checks_passed": true,
+  "all_evaluation_predictions_independently_recomputed": 3515,
+  "unsupported_households_accounted_for": 56,
+  "all_612_monthly_account_counts_verified": true,
+  "evaluation_reference_values_match_raw_source": true,
+  "all_baselines_recomputed": true,
+  "weighted_and_unweighted_mae_rmse_r2_recomputed": true,
+  "calibration_quantile_and_interval_coverage_recomputed": true,
+  "live_app_database_and_source_unchanged": true
+}

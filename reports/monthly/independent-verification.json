@@ -1,0 +1,27 @@
+{
+  "all_checks_passed": true,
+  "source_plan_script_hashes_match": true,
+  "test_predictions_recomputed_from_saved_model": true,
+  "independent_numpy_metrics_match": true,
+  "all_test_targets_match_source": true,
+  "sqlite_integrity": "ok",
+  "test_rows": 1632,
+  "future_sales_mutation_checks": [
+    {
+      "target_month": "2022-01-01",
+      "latest_allowed_month": "2021-10-01",
+      "changing_later_sales_changes_predictors": false
+    },
+    {
+      "target_month": "2024-01-01",
+      "latest_allowed_month": "2023-10-01",
+      "changing_later_sales_changes_predictors": false
+    },
+    {
+      "target_month": "2026-08-01",
+      "latest_allowed_month": "2026-05-01",
+      "changing_later_sales_changes_predictors": false
+    }
+  ],
+  "limitation": "Latest revised data used, historical publication vintages not reconstructed; this is a retrospective feasibility backtest."
+}

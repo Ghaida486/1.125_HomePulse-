@@ -1,0 +1,22 @@
+{
+  "production_files_unchanged": true,
+  "household_ids_disjoint": true,
+  "no_actual_household_kwh_in_prediction_input": true,
+  "profile_numerators_and_denominators_development_only": true,
+  "state_actuals_hidden_for_all_12_months": true,
+  "state_prediction_rows_checked": 612,
+  "state_saved_pipeline_predictions_match": true,
+  "state_fit_targets_end": "2019-09",
+  "no_evaluation_based_tuning": true,
+  "calibration_excluded_from_profile_fit": true,
+  "evaluation_excluded_from_calibration": true,
+  "all_eligible_extreme_consumption_values_retained": true,
+  "predictions_written_before_labels_joined": true,
+  "source_and_code_hashes_recorded": true,
+  "protected_files_after": {
+    "app.py": "461cc3c3c3d534bd5c6e799a47c2b2903652edf1e5ea0587ff79676d797ee771",
+    "src/homepulse/monthly.py": "7d5812737670d37227ad9a252b0fc2d4cf9ed2c2e49b7318524bd1db28ab5199",
+    "src/homepulse/monthly_ui.py": "1441c170083195be8fe1c811d5cc934fb3254e5c1f1a75a7427e630560dabf8d",
+    "data/homepulse_monthly.sqlite": "27c55b2ff85a37b629e6889197f9b4b6650f7ede226d055f73638c3eb7342a1f"
+  }
+}

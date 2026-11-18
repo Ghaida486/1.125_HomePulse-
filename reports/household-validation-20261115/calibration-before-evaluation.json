@@ -1,0 +1,7 @@
+{
+  "n": 3524,
+  "rank": 2820,
+  "absolute_residual_quantile_kwh": 6455.103475332449,
+  "nominal_coverage_pct": 80,
+  "method": "Ceiling rank ceil((n+1)*0.8) from calibration absolute errors, lower bound clipped at zero"
+}

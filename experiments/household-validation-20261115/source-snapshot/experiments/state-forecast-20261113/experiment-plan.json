@@ -1,0 +1,33 @@
+{
+  "experiment": "HomePulse state residential electricity forecasting feasibility",
+  "created": "2026-11-13",
+  "status": "Separate experiment; no changes to the existing HomePulse app",
+  "source_page": "https://www.eia.gov/electricity/data/state/",
+  "source_download": "https://www.eia.gov/electricity/data/state/xls/861m/HS861M%202010-.xlsx",
+  "sheet": "Monthly-States",
+  "population": "All 50 US states plus Washington DC, all available months from January 2010 to August 2026",
+  "target": "Monthly residential electricity sales to ultimate customers, MWh",
+  "target_limitation": "State aggregate grid electricity sales, not an individual household's consumption or total behind-the-meter consumption",
+  "horizon_months_from_latest_observation": 3,
+  "feature_information_cutoff": "For target month t, sales observations must be dated t-3 or earlier",
+  "evaluation": "Retrospective rolling-input backtest using current revised data; model coefficients remain fixed during evaluation. Assumes t-3 observations are published before t. Not a vintage/as-issued operational backtest.",
+  "training_targets": ["2013-01", "2021-09"],
+  "validation_targets": ["2022-01", "2023-09"],
+  "refit_targets": ["2013-01", "2023-09"],
+  "test_targets": ["2024-01", "2026-08"],
+  "boundary_gap_reason": "Allows time for training/validation labels to be published before the first scored target; no target labels from later evaluation months are used to fit or select the model",
+  "baseline_models": ["same_month_last_year", "same_month_three_year_mean", "recent_growth_adjusted_last_year"],
+  "xgboost_targets": ["log_ratio_to_last_year", "log_ratio_to_recent_annual_mean"],
+  "xgboost_settings": [
+    {"max_depth": 2, "n_estimators": 300, "learning_rate": 0.03},
+    {"max_depth": 3, "n_estimators": 400, "learning_rate": 0.03},
+    {"max_depth": 4, "n_estimators": 300, "learning_rate": 0.03}
+  ],
+  "common_settings": {"min_child_weight": 20, "reg_lambda": 20, "subsample": 1.0, "colsample_bytree": 1.0, "objective": "reg:squarederror", "tree_method": "hist", "random_state": 42, "n_jobs": 2, "base_score": 0.0},
+  "selection": "Choose XGBoost candidate with lowest mean of state-specific WAPE on validation; select the strongest simple baseline by the same validation metric. Evaluate these choices once on the test period. Do not tune to test results.",
+  "metrics": ["MAE MWh", "RMSE MWh", "WAPE", "pooled R2", "within-state R2 and MAE/WAPE", "median state R2", "number of states improved relative to validation-selected baseline"],
+  "outliers": "Do not delete, cap or select households/states/months based on forecast errors or target magnitude",
+  "excluded_inputs": ["same-month price", "same-month revenue", "same-month customer count", "actual future weather", "future sales", "household bills"],
+  "example_plot_states_chosen_before_scores": ["MA", "TX", "CA", "FL"],
+  "readiness": "High pooled R2 alone is insufficient. Investigate per-state errors, baseline skill, publication timing and prediction uncertainty before replacing the household app. No R2 threshold is promised."
+}

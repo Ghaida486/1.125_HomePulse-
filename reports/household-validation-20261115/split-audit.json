@@ -1,0 +1,12 @@
+{
+  "source_households": 18496,
+  "known_solar_excluded": 645,
+  "eligible": 17851,
+  "development": 10710,
+  "calibration": 3570,
+  "evaluation": 3571,
+  "removed_for_error_or_outlier": 0,
+  "no_duplicate_ids": true,
+  "splits_disjoint": true,
+  "development_ids_sha256": "ad437147f477af108102f682d28cc0cca73ebb8f107283b97a0bcbdeaaaa33be"
+}

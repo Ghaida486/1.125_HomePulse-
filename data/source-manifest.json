@@ -1,0 +1,25 @@
+{
+  "source": "U.S. Energy Information Administration, EIA-861M",
+  "source_page": "https://www.eia.gov/electricity/data/state/",
+  "source_download": "https://www.eia.gov/electricity/data/state/xls/861m/HS861M%202010-.xlsx",
+  "scope": "Residential electricity sales; 50 states plus Washington, D.C.",
+  "first_month": "2010-01",
+  "last_month": "2026-08",
+  "rows": 10200,
+  "geographies": 51,
+  "months_per_geography": 200,
+  "units": "MWh",
+  "prepared_csv_note": "Exact prepared sales table from the original experiment. Customer counts remain in the Excel workbook.",
+  "files": [
+    {
+      "path": "data/sources/eia_monthly_state_sales.xlsx",
+      "sha256": "c7963ad7c9bd2020cc7472f100a9c5330a4dff97a62be95407137a14b9c4044e",
+      "bytes": 2280162
+    },
+    {
+      "path": "data/sources/monthly_residential_sales_2010_2026.csv",
+      "sha256": "0d8e8b11f399774a335ad7ffea45cb0e117e0ae37973a446ede7a4a0fd561ed9",
+      "bytes": 381634
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+data/raw/*
+data/*.sqlite*
+models/*.joblib
+.DS_Store
+
+data/processed/
+
+# Generated monthly models and experiment outputs are rebuilt locally
+models/**/*.joblib
+experiments/**/raw*/
+experiments/**/results/
+
+# Local credentials and packaging outputs
+.env
+.env.*
+.streamlit/secrets.toml
+build/
+dist/
+experiments/**/*.ubj
+experiments/**/*.joblib
+
+# The buildless public web app is source and must be included in GitHub.
+!web-app-20261116/dist/
+!web-app-20261116/dist/**
+# Hosting identity and local editor state are not needed to run the project.
+web-app-20261116/.openai/

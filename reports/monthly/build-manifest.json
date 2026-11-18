@@ -1,0 +1,76 @@
+{
+  "schema_version": "monthly-home-scenario-v1",
+  "latest_eia_observation": "2026-08",
+  "estimate_months": [
+    "2026-09",
+    "2026-10",
+    "2026-11"
+  ],
+  "state_month_records": 10200,
+  "forecast_rows": 153,
+  "recs_source_records": 18496,
+  "profile_records": 17851,
+  "identified_solar_homes_excluded": 645,
+  "eia_source_sha256": "c7963ad7c9bd2020cc7472f100a9c5330a4dff97a62be95407137a14b9c4044e",
+  "recs_source_sha256": "8d5f6d3120d2cbc2535151c7d455e7a536ca9768f773e15edd45932ec38b3592",
+  "eia_url": "https://www.eia.gov/electricity/data/state/",
+  "recs_url": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=microdata",
+  "selected_model": {
+    "xgboost": "xgb_log_ratio_to_recent_annual_mean_depth2",
+    "baseline": "same_month_three_year_mean",
+    "criterion": "Choose XGBoost candidate with lowest mean of state-specific WAPE on validation; select the strongest simple baseline by the same validation metric. Evaluate these choices once on the test period. Do not tune to test results.",
+    "mode": "log_ratio_to_recent_annual_mean",
+    "settings": {
+      "max_depth": 2,
+      "n_estimators": 300,
+      "learning_rate": 0.03
+    }
+  },
+  "historical_test": {
+    "selected_xgboost": "xgb_log_ratio_to_recent_annual_mean_depth2",
+    "validation_selected_baseline": "same_month_three_year_mean",
+    "xgboost": {
+      "split": "test",
+      "n": 1632,
+      "pooled_r2": 0.9902358247446271,
+      "mae_mwh": 151476.96224490227,
+      "rmse_mwh": 275801.49070702004,
+      "wape": 0.06085878396149901,
+      "mean_state_wape": 0.061429202369389486,
+      "median_state_r2": 0.8519839891334873,
+      "mean_state_r2": 0.8472381648647532,
+      "states_r2_at_least_09": 7,
+      "worst_state_r2": 0.6493104845128437
+    },
+    "baseline": {
+      "split": "test",
+      "n": 1632,
+      "pooled_r2": 0.992415697733024,
+      "mae_mwh": 133306.41028594773,
+      "rmse_mwh": 243072.9562200766,
+      "wape": 0.053558415115024974,
+      "mean_state_wape": 0.053964260292422433,
+      "median_state_r2": 0.8863872562244957,
+      "mean_state_r2": 0.8757819385292676,
+      "states_r2_at_least_09": 17,
+      "worst_state_r2": 0.6339150522435815
+    },
+    "states_with_lower_mae_than_baseline": 3,
+    "mean_state_wape_improvement_pct": -13.833122211841498,
+    "pooled_mae_improvement_pct": -13.630666312278583,
+    "production_app_modified": false
+  },
+  "household_accuracy_validated": false,
+  "customer_count_rule": "Hold residential accounts at the last count available at target month minus three months",
+  "profile_rule": "Joint home-type and size-band weighted mean / all-home weighted mean in the same geography; state then region then US. Minimum 50 records and effective sample >=30.",
+  "formula": "state_forecast_MWh * 1000 / customer_count_assumption * profile_factor",
+  "limits": [
+    "Home output is an unvalidated scenario; state R2 does not measure household accuracy.",
+    "Annual 2020 profile differences are assumed to hold in every target month.",
+    "RECS primary residences and electricity customer accounts are different populations.",
+    "Known on-site PV homes excluded; apartment solar not measured and RECS imputation remains.",
+    "Latest revised EIA data used. Historical publication vintages not reconstructed.",
+    "Original fixed-model test is unchanged; production models refit at each target's t-3 cutoff.",
+    "No home-level prediction interval has been calibrated."
+  ]
+}

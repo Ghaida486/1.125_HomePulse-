@@ -1,0 +1,40 @@
+{
+  "train": 2071,
+  "validation": 691,
+  "evaluation": 690,
+  "valid_outliers_removed": 0,
+  "input_missing_count": 0,
+  "unique_ids": true,
+  "disjoint_splits": true,
+  "field_counts": {
+    "BEDROOMS": {
+      "0": 182,
+      "1": 1317,
+      "2": 1573,
+      "3": 320,
+      "4": 43,
+      "5": 13,
+      "6": 4
+    },
+    "YEARMADERANGE": {
+      "1": 549,
+      "2": 211,
+      "3": 370,
+      "4": 600,
+      "5": 507,
+      "6": 355,
+      "7": 445,
+      "8": 234,
+      "9": 181
+    },
+    "FUELHEAT": {
+      "-2": 284,
+      "1": 1272,
+      "2": 34,
+      "3": 115,
+      "5": 1738,
+      "7": 8,
+      "99": 1
+    }
+  }
+}

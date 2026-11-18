@@ -1,0 +1,226 @@
+{
+  "model_changed": false,
+  "answer_column": "sales_mwh",
+  "answer_is_a_model_input": false,
+  "feature_columns": [
+    "state",
+    "month",
+    "year",
+    "days",
+    "month_sin",
+    "month_cos",
+    "log_recent_mean",
+    "recent_std_ratio",
+    "annual_growth",
+    "recent_3_growth",
+    "relative_lag_3",
+    "relative_lag_4",
+    "relative_lag_5",
+    "relative_lag_6",
+    "relative_lag_12",
+    "relative_lag_13",
+    "relative_lag_14",
+    "relative_lag_15",
+    "relative_lag_24",
+    "relative_lag_36"
+  ],
+  "historical_electricity_features_are_used": true,
+  "test_months_checked": 32,
+  "predictions_checked": 1632,
+  "hidden_answer_and_after_cutoff_sales_reproduce_stored_predictions": true,
+  "scope": "Checks prediction-time features and outputs of the existing saved model. It is not a new accuracy test or proof of household accuracy. Uses the existing revised-data snapshot.",
+  "checks": [
+    {
+      "target_month": "2024-01",
+      "last_allowed_month": "2023-10",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2024-02",
+      "last_allowed_month": "2023-11",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2024-03",
+      "last_allowed_month": "2023-12",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2024-04",
+      "last_allowed_month": "2024-01",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2024-05",
+      "last_allowed_month": "2024-02",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2024-06",
+      "last_allowed_month": "2024-03",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2024-07",
+      "last_allowed_month": "2024-04",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2024-08",
+      "last_allowed_month": "2024-05",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2024-09",
+      "last_allowed_month": "2024-06",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2024-10",
+      "last_allowed_month": "2024-07",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2024-11",
+      "last_allowed_month": "2024-08",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2024-12",
+      "last_allowed_month": "2024-09",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2025-01",
+      "last_allowed_month": "2024-10",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2025-02",
+      "last_allowed_month": "2024-11",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2025-03",
+      "last_allowed_month": "2024-12",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2025-04",
+      "last_allowed_month": "2025-01",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2025-05",
+      "last_allowed_month": "2025-02",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2025-06",
+      "last_allowed_month": "2025-03",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2025-07",
+      "last_allowed_month": "2025-04",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2025-08",
+      "last_allowed_month": "2025-05",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2025-09",
+      "last_allowed_month": "2025-06",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2025-10",
+      "last_allowed_month": "2025-07",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2025-11",
+      "last_allowed_month": "2025-08",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2025-12",
+      "last_allowed_month": "2025-09",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2026-01",
+      "last_allowed_month": "2025-10",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2026-02",
+      "last_allowed_month": "2025-11",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2026-03",
+      "last_allowed_month": "2025-12",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2026-04",
+      "last_allowed_month": "2026-01",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2026-05",
+      "last_allowed_month": "2026-02",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2026-06",
+      "last_allowed_month": "2026-03",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2026-07",
+      "last_allowed_month": "2026-04",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    },
+    {
+      "target_month": "2026-08",
+      "last_allowed_month": "2026-05",
+      "locations": 51,
+      "max_prediction_difference_mwh": 0.0
+    }
+  ]
+}

@@ -15,10 +15,30 @@ async function renderMap(){const state=$('state').value,codes=Object.keys(data.s
  {type:'scattergeo',lon:[-77.0369],lat:[38.9072],mode:'markers+text',text:['DC'],textposition:'bottom right',textfont:{color:'#d8e6f0',size:10},customdata:['DC'],marker:{size:9,color:state==='DC'?mint:blue,line:{color:'#0b111b',width:1}},hovertemplate:'Washington, D.C.<br>Click to select<extra></extra>',showlegend:false}
  ],{margin:{t:0,b:0,l:0,r:0},geo:{scope:'usa',projection:{type:'albers usa'},bgcolor:'transparent',showland:true,landcolor:'#182b3b',showlakes:false,showcoastlines:false,showcountries:false,showsubunits:false},dragmode:false,uirevision:'homepulse-map',showlegend:false});
  if(!mapReady){$('state-map').on('plotly_click',event=>{const point=event.points[0];const selected=point.location||(point.customdata==='DC'?'DC':null);if(data.states[selected]){$('state').value=selected;update();renderMap()}});mapReady=true;}}
-function renderOutlook(state){const h=data.history.filter(x=>x.state===state),f=data.forecasts.filter(x=>x.state===state);$('trend-title').textContent=data.states[state].name+' · electricity outlook';chart('outlook-chart',[
- {x:h.map(x=>x.date),y:h.map(x=>x.sales_mwh),type:'scatter',mode:'lines',name:'EIA recorded',line:{color:blue,width:2.5}},
- {x:f.map(x=>x.month+'-01'),y:f.map(x=>x.xgboost_mwh),type:'scatter',mode:'lines+markers',name:'Forecast',line:{color:mint,width:2.5,dash:'dash'}}
- ],{hovermode:'x unified',yaxis:{...layout.yaxis,title:{text:'Residential sales (MWh)',font:{size:10}},tickformat:'~s'}})}
+function renderOutlook(state){
+ const h=data.history.filter(x=>x.state===state).sort((a,b)=>a.date.localeCompare(b.date));
+ const f=data.forecasts.filter(x=>x.state===state).sort((a,b)=>a.month.localeCompare(b.month));
+ const firstForecast=f[0],forecastStart=firstForecast?.month+'-01';
+ const lastRecorded=firstForecast?h.filter(x=>x.date.slice(0,7)<firstForecast.month).at(-1):null;
+ const forecastLine={color:mint,width:2.5,dash:'dash'};
+ const traces=[
+  {x:h.map(x=>x.date),y:h.map(x=>x.sales_mwh),type:'scatter',mode:'lines',name:'EIA recorded',line:{color:blue,width:2.5}},
+  {x:f.map(x=>x.month+'-01'),y:f.map(x=>x.xgboost_mwh),type:'scatter',mode:'lines+markers',name:'Forecast',legendgroup:'forecast',line:forecastLine}
+ ];
+ // Bridge the traces visually without labelling the last observation as a forecast.
+ if(lastRecorded)traces.push({
+  x:[lastRecorded.date,forecastStart],y:[lastRecorded.sales_mwh,firstForecast.xgboost_mwh],
+  type:'scatter',mode:'lines',name:'Forecast transition',legendgroup:'forecast',
+  showlegend:false,hoverinfo:'skip',line:forecastLine
+ });
+ $('trend-title').textContent=data.states[state].name+' · electricity outlook';
+ chart('outlook-chart',traces,{
+  hovermode:'x unified',margin:{...layout.margin,t:38},
+  yaxis:{...layout.yaxis,title:{text:'Residential sales (MWh)',font:{size:10}},tickformat:'~s'},
+  shapes:firstForecast?[{type:'line',xref:'x',yref:'paper',x0:forecastStart,x1:forecastStart,y0:0,y1:1,line:{color:mint,width:1,dash:'dot'},opacity:.55}]:[],
+  annotations:firstForecast?[{xref:'x',yref:'paper',x:forecastStart,y:1.04,text:'Forecast begins',showarrow:false,xanchor:'right',yanchor:'bottom',font:{color:mint,size:11}}]:[]
+ });
+}
 function update(){const state=$('state').value,kind=Number($('home-type').value),area=Number($('area').value),month=$('month').value;
  $('home-help').textContent=descriptions[kind];$('state-chip').textContent=state;$('area-metric').textContent=Number.isFinite(area)&&area>0?'≈ '+nf.format(area*.092903)+' m²':'';
  $('result-month').textContent=shortMonth(month);$('result-location').textContent=data.states[state].name;$('result-profile').textContent=data.home_types[kind]+' · '+nf.format(area)+' sq ft';

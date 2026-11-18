@@ -74,16 +74,16 @@ data/ and docs/data-and-cleaning.md; https://www.eia.gov/electricity/data/state/
 
 ### Narration
 
-Offline, Python prepares the data, trains state forecasts and creates weighted household comparisons. SQLite stores the results. We export an aggregate snapshot to the public website, which validates it before calculating a home scenario.
+Python prepares both datasets. State forecasts and household records enter SQLite first. The matcher then builds supported household comparisons for JSON export. The website validates this snapshot and calculates the monthly home estimate.
 
 ### What to show
 
-Clip A, slide 4. Follow the forecasting path and household-matching path into SQLite and the aggregate JSON export. Point to browser validation and the estimate. Spend 15 seconds here, then move to the technology list.
+Clip A, slide 4. Follow EIA preparation, training and batch forecasts into SQLite. Follow RECS preparation into the same database. Then trace SQLite to SurveyProfileMatcher, JSON export, snapshot validation and the public app. SQLite storage precedes matching; JSON export follows matching. Spend 15 seconds here. Streamlit is the local database-backed prototype; the browser uses only exported aggregate data.
 
 <details>
 <summary>Sources and preparation notes</summary>
 
-docs/architecture.md and docs/code-walkthrough.md. Public code: web-app-20261116/dist/; local prototype: app.py.
+README.md, Implemented architecture; docs/architecture.md; web-app-20261116/scripts/export_snapshot.py loads the SQLite snapshot before constructing SurveyProfileMatcher. Forecasting saves fitted preprocessing and models and exports evaluation reports. The public app validates aggregate JSON, looks up a state forecast and applies a household factor. State forecast per account × household profile factor = monthly kWh scenario. Inputs are state, month, home type and floor area. The household scenario still requires separate predictive validation.
 
 </details>
 

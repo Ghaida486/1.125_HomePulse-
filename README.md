@@ -38,16 +38,23 @@ household accuracy remains an open part of the project.
 
 ### Technologies implemented
 
-| Technology | How it is used in HomePulse |
-|---|---|
-| **Python** | Runs data preparation, model development, evaluation, database creation and snapshot export |
-| **pandas** | Reads the EIA workbook and RECS CSV, checks data types and dates, prepares historical features and weighted household profiles |
-| **SQLite** | Stores prepared observations, forecasts, household profile records, evaluation results and build metadata |
-| **scikit-learn** | Encodes categorical inputs, keeps fitted preprocessing with the model, and calculates evaluation metrics |
-| **XGBoost** | Learns from past state residential electricity sales and calendar features to forecast later state totals |
-| **Plotly** | Provides the clickable U.S. map, monthly outlook and home-profile comparison charts |
-| **Streamlit** | Provides the local Python development prototype used to inspect the calculation and charts |
-| **HTML, CSS and JavaScript** | Power the published dark-theme web app, its four-input form, browser calculation and downloadable results |
+| Technology | What it does | Where / when it runs |
+|---|---|---|
+| **Python** | Runs the data preparation, training, evaluation, database-building and export scripts | On the development machine when preparing a research snapshot |
+| **pandas** | Reads and checks the EIA and RECS files; creates past-sales features, size bands and survey comparison groups | In the Python data pipeline |
+| **scikit-learn** | Encodes state/month categories, combines preprocessing with XGBoost in one saved pipeline, and calculates R², MAE and RMSE | During model training and evaluation |
+| **XGBoost** | Learns relationships between historical state sales and calendar features; produces monthly **state residential sales forecasts in MWh** | During offline training and batch forecasting |
+| **SQLite** | Stores prepared observations, saved forecast values, household profiles, evaluation results and build metadata | In the offline pipeline and local prototype; exported to aggregate JSON for the public app |
+| **JavaScript** | Validates the four user inputs, looks up a saved forecast and profile factor, calculates the home estimate and creates the downloadable JSON report | In the user's browser |
+| **Plotly** | Draws the clickable U.S. map, state electricity outlook and state-average/home-profile comparison bars | In the public browser app; also used in the local prototype and evaluation charts |
+| **HTML + CSS** | Define the form, navigation, explanatory panels and responsive dark-theme layout | In the public browser app |
+| **Streamlit** | Provides the local Python development interface for inspecting estimates and charts | In the local prototype launched with `app.py` |
+
+**Two different stages:** Python, pandas, scikit-learn and XGBoost prepare the
+forecasts before publication. The published website uses JavaScript to retrieve
+those saved values and apply the household adjustment. Changing the form updates
+the calculation; it does not train or run XGBoost in the browser. Streamlit is the
+local prototype, while HTML, CSS and JavaScript power the shareable website.
 
 ### Data used
 
@@ -118,9 +125,25 @@ and [database builder](scripts/build_monthly.py).
 
 ### B. Historical features and model training
 
-The state model uses state/calendar fields, past electricity sales, seasonal values
-and historical growth measures. For a target month, electricity-use inputs are at least
-**three months old**. For example, this implemented feature uses only earlier values:
+**What does the forecast depend on?** XGBoost predicts the total electricity sold
+to **all residential accounts in one state during one month**, measured in MWh.
+The pipeline builds its inputs automatically from the EIA historical state data:
+
+| Forecast input | What the model uses it to learn |
+|---|---|
+| **State** | Differences in electricity-use patterns between states |
+| **Target month and year** | Recurring seasonal patterns and changes over time; the code also includes days in the month and cyclic month encodings |
+| **Past residential electricity sales** | Sales from 3, 4, 5, 6, 12, 13, 14, 15, 24 and 36 months earlier, expressed relative to the recent 12-month average |
+| **Typical recent use** | The recent 12-month average, supplied in logarithmic form |
+| **Growth and variability** | Changes in 12-month and three-month averages compared with the corresponding earlier year, plus variation around the recent average |
+
+These historical inputs come from the dataset; users do not enter them. The app's
+**state and month** select the saved forecast. **Home type and floor area** are used
+later in the household adjustment described in section 4C.
+
+**Historical cutoff:** for a target month, all electricity-use inputs are at least
+**three months old**. For example, the November 2026 forecast uses observations
+through August 2026. The recent 12-month average ends at that cutoff:
 
 ```python
 g["recent_mean"] = y.shift(3).rolling(12).mean()
@@ -147,7 +170,23 @@ and [independent verification](experiments/state-forecast-20261113/verify_and_re
 
 ### C. Household calculation and app integration
 
-The implemented calculation is:
+**How does a state forecast become a home estimate?** The app combines the saved
+state forecast with a survey-based home-profile factor in four steps:
+
+1. **Look up the state forecast.** Use the selected state and month to retrieve the
+   saved XGBoost forecast of residential electricity sales in MWh.
+2. **Calculate the state average per account.** Multiply by **1,000** to convert MWh
+   to kWh, then divide by the assumed number of residential electricity accounts.
+   The account count is held at the latest observation allowed by the three-month
+   cutoff; it is not separately forecast.
+3. **Find a comparable home profile.** Use the selected home type and floor-area
+   band to find similar RECS 2020 homes. Calculate their survey-weighted mean annual
+   electricity use and divide it by the weighted mean for all retained survey homes
+   in the same comparison geography. This produces a unitless adjustment factor.
+4. **Apply the factor.** Multiply the forecast monthly state average per account by
+   that factor to obtain the monthly household planning estimate in kWh.
+
+The implemented formulas are:
 
 ```text
 Monthly household scenario (kWh)
@@ -155,13 +194,34 @@ Monthly household scenario (kWh)
   × 1,000
   ÷ assumed residential account count
   × survey-weighted home-profile factor
+
+Home-profile factor
+  = survey-weighted annual mean for the selected home type and size band
+  ÷ survey-weighted annual mean for all retained homes in the same geography
 ```
 
-The profile factor compares the weighted annual mean for the selected home type and
-size band with the all-home mean in the same geography. Matching tries the state,
-then region, then national sample. A comparison needs at least **50 survey records**
-and an **effective sample size of 30**; unsupported profiles receive no estimate.
-Account counts use the latest observation allowed by the forecast cutoff.
+**Worked example from the current app:** Massachusetts, November 2026, an apartment
+in a building with 5+ apartments, and 1,000 sq ft:
+
+| Calculation | Value (rounded) |
+|---|---:|
+| Forecast state residential sales | 1,399,130 MWh |
+| Assumed residential accounts | 2,921,850 |
+| State average: forecast × 1,000 ÷ accounts | 478.85 kWh/account for the month |
+| RECS home-profile factor | 0.7066 |
+| Home estimate: state average × factor | **338 kWh for the month** |
+
+The factor uses **149 Northeast survey homes** in the selected type and size band.
+Matching tries the state, then region, then national sample. A comparison needs at
+least **50 survey records** and an **effective sample size of 30**; unsupported
+profiles receive no estimate. Floor area is grouped into bands, so homes with the
+same type, geography and size band receive the same adjustment.
+
+This calculation assumes that relative differences between annual RECS 2020 home
+profiles also apply to the selected forecast month. Residential accounts and
+occupied homes are different populations. The result is a **household planning
+scenario** whose individual monthly accuracy requires separate validation; the
+state forecast's R² does not establish that accuracy.
 
 Relevant code: [Python calculation](src/homepulse/monthly.py),
 [SQLite-to-web export](web-app-20261116/scripts/export_snapshot.py),

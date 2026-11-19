@@ -5,7 +5,7 @@ technologies, architecture, code, demo, risks and next steps.
 
 | Document | Purpose |
 |---|---|
-| [Midpoint presentation and video script](midpoint/video-script.md) | Final PPTX with speaker notes, slides-only PDF, 4:50 narration and live-demo recording cues |
+| [Midpoint presentation and video script](midpoint/video-script.md) | Deck and notes aligned with the 4:57 recording; slide 11 risks and slide 12 final-project plan |
 | [Visual app walkthrough](../README.md#5-demo--what-currently-works) | Five current app screenshots with explanations of the inputs, estimate, forecast chart and calculation |
 | [Code walkthrough](code-walkthrough.md) | Forecast feature safeguards, survey matching, browser contracts and their challenge tests |
 | [System architecture](architecture.md) | Offline model development, SQLite storage, export and public/local app execution |

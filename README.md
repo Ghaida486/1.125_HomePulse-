@@ -13,7 +13,9 @@ completed so far and the evidence supporting it.
 **Midpoint recording materials:** [PowerPoint with speaker notes](docs/midpoint/HomePulse_Deliverable_2_Final.pptx),
 [slides-only PDF](docs/midpoint/HomePulse_Deliverable_2_Final.pdf) and
 [4–5-minute script with live-demo cues](docs/midpoint/video-script.md).
-The planned recording lasts 4:50, including a 1:05 live app demonstration.
+The recorded midpoint video runs **4:57**. The deck and supporting script are
+aligned with the recording, including the risks on slide 11 and next steps on slide 12.
+Speaker-note timings remain a 4:50 rehearsal guide, not exact video chapter timestamps.
 
 ## 1. Introduction — what I built
 
@@ -374,37 +376,45 @@ python3 -m http.server 8767 --directory web-app-20261116/dist
 Open `http://127.0.0.1:8767/`. The prepared web snapshot does not require an ML package
 installation. Full build and verification commands are in [setup instructions](docs/setup.md).
 
-## 6. Risks — what remains uncertain
+## 6. Risks and planned responses — slide 11
 
-| Remaining issue | Current response |
-|---|---|
-| Individual monthly household accuracy | Keep the result labelled as a planning scenario; retain household diagnostics and investigate compatible monthly validation data |
-| Transferring 2020 annual profiles to future months | Explain the age and annual-to-monthly assumption, use survey weights, enforce sample support and report geographic fallback |
-| XGBoost versus the stronger seasonal benchmark | Report both methods on the same observations and plan further evaluation before changing the deployed method |
-| Reproducibility as sources change | Preserve checksums and dependency versions; the downloader stops when a source release differs from the studied snapshot |
+The recorded midpoint presentation highlights two external dependencies:
 
-The annual diagnostic's nominal 80% interval achieved 80.2% coverage, but was broad
-(about ±6,455 kWh/year). It is not used as a monthly household prediction interval.
+| Risk | What it means | Planned response |
+|---|---|---|
+| **Data freshness** | Data releases follow EIA's schedule | Refresh when new data is published |
+| **Source availability** | EIA outages could delay future data updates | Keep the last validated dataset if an update fails |
 
-## 7. Next steps — before the final project
+The current public app uses a saved research snapshot. Automatic API updates and
+fallback handling are planned final-project work. Source interruption is a possible
+future risk, not a reported outage. API access will not make EIA publish data sooner.
 
-The following features and coding improvements are **planned for the final project**:
+The [evaluation evidence above](#d-evaluation-and-software-verification) and
+[evaluation guide](docs/evaluation.md) retain the model assumptions, baseline
+comparison and household validation limits discussed elsewhere in the presentation.
 
-1. **Compare Two Homes:** add two independent location/home profiles, linked charts
-   and a downloadable comparison report for exploring planning scenarios.
-2. **EIA API integration:** automate monthly updates with validation, dated source
-   snapshots and a fallback to the previous working snapshot if an update fails.
-3. **Stronger evaluation:** define a practical household error tolerance before further
-   model selection, compare state methods on a separately planned period or compatible
-   independent data, and examine household errors by home type and region.
-4. **Tested uncertainty ranges:** evaluate state-forecast interval coverage separately
-   from household uncertainty. State results do not establish individual-home accuracy.
-5. **Automated tests and reproducibility:** run existing and new checks through GitHub
-   Actions, verify a fresh installation and test usability across devices with intended users.
+## 7. Next steps — slide 12
+
+The recorded final slide identifies the following **planned final-project work**:
+
+1. **Compare two homes:** two profiles, linked charts and a downloadable comparison
+   report. Users will compare electricity planning scenarios side by side.
+2. **EIA API integration:** validate monthly updates, save dated snapshots and keep
+   a working fallback. Publish an updated snapshot only after its data checks pass.
+3. **Stronger evaluation:** test new state periods against the seasonal baseline and
+   examine household errors by type and region. Set the evaluation period, error
+   measures and useful improvement criteria before further model selection.
+4. **Tested uncertainty ranges:** check state-forecast interval coverage and assess
+   household uncertainty separately. As explained in the closing narration, prediction
+   ranges are an extension to attempt if time allows, after the first three priorities.
+
+These are future milestones, not completed app features. Existing software tests
+and evaluation reports remain available in the repository.
 
 **Midpoint status:** the data pipeline, modelling workflow, saved forecasts, household
-profile calculation and public prototype are implemented. The principal remaining
-technical task is establishing the reliability of individual monthly household estimates.
+profile calculation and public prototype are implemented. Further evaluation must
+establish the reliability of individual monthly household estimates; a state-level
+R² does not validate a single home's result.
 
 ## Repository guide
 

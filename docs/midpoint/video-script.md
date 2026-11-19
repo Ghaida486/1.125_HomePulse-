@@ -1,106 +1,131 @@
-# HomePulse midpoint video script
+# HomePulse midpoint video — slides and speaker notes
 
 Ghaida Aljuhani · MIT 1.125 · November 18, 2026
 
-Target: **4 minutes 50 seconds**, including a **65-second live app demo**. Rehearse to check your speaking pace. Read only the narration aloud; recording cues and source notes are for preparation.
+The recorded video runs **4 minutes 57 seconds**. These are the supporting speaker
+notes from the recording deck, with superseded preparation references removed.
+They are not a verbatim audio transcript. The 4:50 timings below are rehearsal cues;
+the recorded transitions and speaking pace differ.
 
 - [PowerPoint with speaker notes](HomePulse_Deliverable_2_Final.pptx)
 - [Slides-only PDF](HomePulse_Deliverable_2_Final.pdf)
 - [Recording checklist](recording-checklist.txt)
-- [Open the live app](https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/)
+- [Open the app](https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/)
 
-Record three clips: slides 1–9 (2:40), the app (1:05), then slides 11–12 (1:05). Slide 10 is the backup demo slide.
+The sequence follows the instructors' requested introduction, pitch, technology,
+code, demonstration, risks and next steps. Slides 6–8 explain actual implementation
+excerpts; slide 10 supports the app demonstration.
+
+Slide 11 covers **data freshness** and **source availability**, with a planned
+response to each. Slide 12 shows **Compare two homes**, **EIA API integration**,
+**Stronger evaluation** and **Tested uncertainty ranges**. The closing narration
+prioritizes the first three and treats prediction ranges as time permitting.
 
 ## Slide 1: HomePulse midpoint check-in
 
-**0:00–0:15 (15 seconds)**
+**Rehearsal guide: 0:00–0:10 (10 seconds)**
 
-### Narration
+### Speaker notes
 
-Hi, I’m Ghaida Aljuhani. HomePulse helps renters and homebuyers across the United States estimate electricity use before moving into a home. Today, I’ll demonstrate the app and explain how its estimates are produced.
+Hi, I’m Ghaida Aljuhani. I’m building HomePulse to help U.S. renters and homebuyers explore electricity use before moving into a home.
 
-### What to show
+### Demonstration / preparation cues
 
-Clip A. Slide 1. Start recording on the cover. Introduce the United States audience and advance at fifteen seconds.
+Clip A. Begin on the original cover slide. Introduce yourself and the U.S. audience. Speak directly to the viewer, then advance.
 
 <details>
-<summary>Sources and preparation notes</summary>
+<summary>Sources and context</summary>
 
 Submitted HomePulse proposal cover and current README.
+Repository: https://github.com/Ghaida486/1.125_HomePulse-
+Code version: 608ea3bee773d9b31e8bcb2a5191d709a94c94c9
+Live app: https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/
+Cover illustration reused from the submitted proposal; original notes credit OpenAI image generation. EIA logo: https://www.eia.gov/global/images/logos/eia_logo_print.png .
 
 </details>
 
 ## Slide 2: Electricity planning before moving
 
-**0:15–0:35 (20 seconds)**
+**Rehearsal guide: 0:10–0:35 (25 seconds)**
 
-### Narration
+### Speaker notes
 
-Renters and homebuyers need electricity estimates before moving. EIA’s household survey runs roughly every four years, with consumption results released later. HomePulse combines these household patterns with monthly state data to support planning.
+Before signing a lease, you know the rent, location and size. Electricity use often remains unknown. HomePulse turns familiar home details into a monthly planning estimate. Household surveys arrive less frequently than monthly state electricity data, so the challenge is connecting these sources while making the calculation and its limits clear.
 
-### What to show
+### Demonstration / preparation cues
 
-Clip A. Slide 2. Point to the household survey publication lag and the actual app form. RECS is not an annual survey. EIA’s state electricity-sales data is monthly. The 2024 RECS consumption results are scheduled for spring 2027. Do not imply that all EIA data arrives every four years or that HomePulse replaces official survey statistics.
+Point to the renter/homebuyer audience, then the app form. Pause briefly after the opening situation. The publication gap refers to RECS household data, not all EIA data. The app supports electricity planning and does not replace official statistics.
 
 <details>
-<summary>Sources and preparation notes</summary>
+<summary>Sources and context</summary>
 
-EIA RECS FAQs: https://www.eia.gov/consumption/residential/faqs.php (current four-year cycle; historical intervals have varied). 2024 consumption release schedule: https://www.eia.gov/consumption/residential/data/2024/index.php?view=consumption (spring 2027). Monthly state electricity data: https://www.eia.gov/electricity/data/eia861m/ . Verified November 18, 2026. Publication lag does not mean an overdue release. HomePulse uses historical household patterns for planning scenarios; this does not establish current household accuracy.
+README sections 1–2. The household output is a planning scenario.
+Repository: https://github.com/Ghaida486/1.125_HomePulse-
+Code version: 608ea3bee773d9b31e8bcb2a5191d709a94c94c9
+Live app: https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/
+EIA RECS FAQs: https://www.eia.gov/consumption/residential/faqs.php (four-year cycle; historical intervals vary). 2024 consumption release: https://www.eia.gov/consumption/residential/data/2024/index.php?view=consumption (spring 2027). State electricity data is monthly: https://www.eia.gov/electricity/data/eia861m/ . Verified November 18, 2026. Publication lag does not mean the release is overdue.
 
 </details>
 
 ## Slide 3: The data behind the estimate
 
-**0:35–0:50 (15 seconds)**
+**Rehearsal guide: 0:35–0:55 (20 seconds)**
 
-### Narration
+### Speaker notes
 
-Two datasets support this: monthly state residential sales and account counts, plus RECS household characteristics, annual electricity use and survey weights.
+HomePulse uses two sources of data. Monthly state data shows residential electricity sales and customer account counts. The household survey shows how electricity use differs by home type and size. I use pandas to check the data, exclude solar homes from the comparison, and calculate averages using the survey’s population weights
 
-### What to show
+### Demonstration / preparation cues
 
-Clip A. Slide 3. Point to state sales and accounts, then household floor area, annual kWh and weight. These are selected real source rows, not example data.
+Point to sales and account counts in the upper table, then home type, size, annual kWh and weight in the lower table. The source has 18,496 homes; the profile calculation retains 17,851 after excluding 645 identified solar homes. This is a documented analysis filter, not deletion of the raw source. Do not read every row or number.
 
 <details>
-<summary>Sources and preparation notes</summary>
+<summary>Sources and context</summary>
 
 data/ and docs/data-and-cleaning.md; https://www.eia.gov/electricity/data/state/ ; https://www.eia.gov/consumption/residential/data/2020/index.php?view=microdata .
+Repository: https://github.com/Ghaida486/1.125_HomePulse-
+Code version: 608ea3bee773d9b31e8bcb2a5191d709a94c94c9
+Live app: https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/
+RECS type 2 = detached; type 5 = apartment in a building with 5+ apartments. Annual kWh and weights shown rounded. The source rows do not directly link individual homes to state accounts.
 
 </details>
 
 ## Slide 4: Working system architecture
 
-**0:50–1:05 (15 seconds)**
+**Rehearsal guide: 0:55–1:15 (20 seconds)**
 
-### Narration
+### Speaker notes
 
-Python prepares both datasets. State forecasts and household records enter SQLite first. The matcher then builds supported household comparisons for JSON export. The website validates this snapshot and calculates the monthly home estimate.
+The architecture separates model development from the public website. Python prepares data, evaluates forecasting models and stores results in SQLite. A matching engine builds household comparisons. A checked JSON snapshot connects this pipeline to the browser, where JavaScript calculates the estimate without retraining the model.
 
-### What to show
+### Demonstration / preparation cues
 
-Clip A, slide 4. Follow EIA preparation, training and batch forecasts into SQLite. Follow RECS preparation into the same database. Then trace SQLite to SurveyProfileMatcher, JSON export, snapshot validation and the public app. SQLite storage precedes matching; JSON export follows matching. Spend 15 seconds here. Streamlit is the local database-backed prototype; the browser uses only exported aggregate data.
+Trace the upper EIA path through training and batch forecasts into SQLite. Trace RECS into the same database, then follow matching, aggregate JSON export, snapshot validation and the public website. Keep the pointer slow. SQLite precedes matching. The browser reads saved forecasts and group summaries.
 
 <details>
-<summary>Sources and preparation notes</summary>
+<summary>Sources and context</summary>
 
 README.md, Implemented architecture; docs/architecture.md; web-app-20261116/scripts/export_snapshot.py loads the SQLite snapshot before constructing SurveyProfileMatcher. Forecasting saves fitted preprocessing and models and exports evaluation reports. The public app validates aggregate JSON, looks up a state forecast and applies a household factor. State forecast per account × household profile factor = monthly kWh scenario. Inputs are state, month, home type and floor area. The household scenario still requires separate predictive validation.
+Repository: https://github.com/Ghaida486/1.125_HomePulse-
+Code version: 608ea3bee773d9b31e8bcb2a5191d709a94c94c9
+Live app: https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/
 
 </details>
 
 ## Slide 5: Technologies used in HomePulse
 
-**1:05–1:25 (20 seconds)**
+**Rehearsal guide: 1:15–1:33 (18 seconds)**
 
-### Narration
+### Speaker notes
 
-These are the tools behind each step. Pandas cleans data, scikit-learn evaluates predictions, and XGBoost forecasts state sales. HTML structures the website, CSS styles it, and JavaScript updates estimates. Plotly creates the clickable map and charts. Streamlit is the local prototype, with code and tests on GitHub.
+Pandas prepares the data, while scikit-learn and XGBoost handle modelling. The public site uses HTML, CSS and JavaScript, with Plotly powering the map and charts. Streamlit supports the local prototype. GitHub contains the implementation and tests. Here are three decisions that matter in the code.
 
-### What to show
+### Demonstration / preparation cues
 
-Clip A, slide 5. Use 20 seconds to explain the role list. Emphasize that Plotly supplies the clickable US map and charts, while HTML, CSS and JavaScript provide the public website structure, appearance and interactions. These technologies are already used. EIA API integration and GitHub Actions are planned additions on the final next-steps slide.
+Follow the technology roles rather than reading the entire table. SQLite was explained on the preceding architecture slide. Transition to the code slides. Streamlit is the local prototype; the published app uses HTML, CSS and JavaScript.
 
 <details>
-<summary>Sources and preparation notes</summary>
+<summary>Sources and context</summary>
 
 Verified current implementation: web-app-20261116/dist/index.html, styles.css, app.js, model.js and evidence-view.js; src/homepulse/; scripts/; experiments/state-forecast-20261113/; app.py; docs/architecture.md. Repository: https://github.com/Ghaida486/1.125_HomePulse- . Plotly choropleth/scattergeo renders the US map, Plotly scatter traces render the electricity outlook, and a Plotly bar trace compares the home scenario with the state account average. JavaScript validates the saved snapshot and calculates the household scenario. XGBoost forecasts are computed offline in Python. The public website does not run Streamlit or retrain XGBoost on user input.
 
@@ -108,133 +133,168 @@ Verified current implementation: web-app-20261116/dist/index.html, styles.css, a
 
 ## Slide 6: Code: forecasting without the target answer
 
-**1:25–1:45 (20 seconds)**
+**Rehearsal guide: 1:33–1:55 (22 seconds)**
 
-### Narration
+### Speaker notes
 
-First, the forecasting code uses electricity history at least three months before the target. This shift prevents the answer entering the rolling average. Training, validation and testing follow time order. A challenge test changes later data and checks that the earlier prediction inputs stay unchanged.
+First, the model must never see the answer it is predicting. This shift uses electricity history at least three months before the target. Training, validation and testing follow time order. I also test this rule by changing later records and checking that earlier prediction inputs stay identical.
 
-### What to show
+### Demonstration / preparation cues
 
-Clip A. Slide 6. Point at shift(3), the timeline and the leakage challenge. These are actual source excerpts, with unrelated lines omitted.
+Point to shift(3), then the chronological split and the challenge test. Explain why the shift exists, rather than reading the code line by line. The historical test updates the allowed lag history for each target month; it is not a single forecast made years in advance.
 
 <details>
-<summary>Sources and preparation notes</summary>
+<summary>Sources and context</summary>
 
 experiments/state-forecast-20261113/run_experiment.py, features() and fit(); tests/test_monthly.py, test_forecast_rows_and_no_future_input_leakage.
+Repository: https://github.com/Ghaida486/1.125_HomePulse-
+Code version: 608ea3bee773d9b31e8bcb2a5191d709a94c94c9
+Live app: https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/
 
 </details>
 
 ## Slide 7: Code: selecting a supported household comparison
 
-**1:45–2:05 (20 seconds)**
+**Rehearsal guide: 1:55–2:15 (20 seconds)**
 
-### Narration
+### Speaker notes
 
-Second, the matching engine tries state, region, then national comparisons. It requires enough records and checks whether a few survey weights dominate. For our apartment example, Massachusetts has only seventeen matches, so the engine selects one hundred forty-nine Northeast homes and saves the reason.
+Secondly, This part of the code chooses comparable homes from the survey. It first searches within the selected state. If there are too few matches, it expands to the region. In this example, Massachusetts has only seventeen matching homes, so the app uses one hundred forty-nine Northeast homes.
 
-### What to show
+### Demonstration / preparation cues
 
-Clip A. Slide 7. Point to the two support checks and the Massachusetts-to-Northeast table. Effective count measures support, not predictive accuracy.
+Point to the two support checks, then the Massachusetts and Northeast rows. The rule requires at least 50 records and an effective count of 30. A broader group supplies more survey support, but that alone does not establish prediction accuracy.
 
 <details>
-<summary>Sources and preparation notes</summary>
+<summary>Sources and context</summary>
 
 src/homepulse/peer_matching.py: effective_sample_size(), SurveyProfileMatcher.match(). Frozen MA / home type 5 / 1,000–1,499 sq ft profile.
+Repository: https://github.com/Ghaida486/1.125_HomePulse-
+Code version: 608ea3bee773d9b31e8bcb2a5191d709a94c94c9
+Live app: https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/
+Excerpt from SurveyProfileMatcher.match(); comment marks omitted lines. Effective n = (sum weights)^2 / sum squared weights. Source normalizes weights first for numerical stability. Thresholds are support rules, not accuracy guarantees.
 
 </details>
 
 ## Slide 8: Code: validating the public calculation
 
-**2:05–2:25 (20 seconds)**
+**Rehearsal guide: 2:15–2:30 (15 seconds)**
 
-### Narration
+### Speaker notes
 
-Third, browser checks reject inconsistent forecasts and unsupported profiles. Python and JavaScript agree across three thousand three hundred sixty-six scenarios. Twenty-four deliberately corrupted snapshots are rejected. These are implementation checks. The full functions and tests are available in the GitHub repository.
+Third, I check that the browser calculation matches Python. All three thousand three hundred sixty-six reference scenarios agree, and the validation rejects twenty-four corrupted snapshots. These checks verify implementation consistency. Predictive accuracy needs a different test.
 
-### What to show
+### Demonstration / preparation cues
 
-Clip A, slide 8. Stay on the slide and point to the code excerpt and test results. The code explanation is delivered from the slides. A separate GitHub screen recording is not needed.
+Point to the calculation, then the agreement count and rejected snapshots. The slide also lists 23 passing Python tests. These are software checks, not a claim that every home estimate is accurate. Advance to the actual-versus-predicted graph.
 
 <details>
-<summary>Sources and preparation notes</summary>
+<summary>Sources and context</summary>
 
 docs/code-walkthrough.md; web-app-20261116/scripts/verify.mjs and verify-contracts.mjs. November 18 verification: 23 Python tests, 3,366 parity cases, 24 corrupted snapshots rejected. These checks do not establish household accuracy.
+Repository: https://github.com/Ghaida486/1.125_HomePulse-
+Code version: 608ea3bee773d9b31e8bcb2a5191d709a94c94c9
+Live app: https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/
+The four code lines are excerpts from estimate() with intervening lookup and conversion lines omitted. Explain the source excerpt from this slide; the full code remains available on GitHub.
 
 </details>
 
 ## Slide 9: Predicted versus actual state sales
 
-**2:25–2:40 (15 seconds)**
+**Rehearsal guide: 2:30–2:55 (25 seconds)**
 
-### Narration
+### Speaker notes
 
-Across sixteen hundred thirty-two later state-month records, XGBoost’s pooled R-squared is point nine nine zero. The seasonal baseline performs better overall. These results evaluate state electricity sales; individual household accuracy requires separate evaluation. Now I’ll show the working website.
+This graph compares predicted and actual electricity sales for 1,632 monthly state records. XGBoost has an overall R-squared of 0.99. A simple seasonal average performed slightly better. These results apply to whole states. Individual home estimates still need separate testing. Now, I’ll show the app.
 
-### What to show
+### Demonstration / preparation cues
 
-Clip A, slide 9. Point to the scatter and both methods in the table. End this clip after saying “Now I’ll show the working website.” Target clip length: 2:40. The website demonstration will be recorded separately and inserted next.
+Point to the diagonal: points near it indicate closer predicted and actual values. Then show both methods in the table, including the baseline's lower MAE. Pooled R-squared includes differences in state size; it is not 99 percent household accuracy. End Clip A after the transition to the app.
 
 <details>
-<summary>Sources and preparation notes</summary>
+<summary>Sources and context</summary>
 
 reports/monthly/test-predictions.csv and test-comparison.csv. Test: Jan 2024–Aug 2026. XGB R² 0.9902358247446271; three-year same-month baseline R² 0.992415697733024. MAE 151,477 versus 133,306 MWh.
+Repository: https://github.com/Ghaida486/1.125_HomePulse-
+Code version: 608ea3bee773d9b31e8bcb2a5191d709a94c94c9
+Live app: https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/
+All test records shown. Median within-state XGBoost R²: 0.852. Pooled R² includes variation in state size. Historical release vintages were not reconstructed. Original fixed test results are retained.
 
 </details>
 
-## Slide 10: Live app: estimate and matching evidence
+## Slide 10: Live app demo
 
-**2:40–3:45 (65 seconds)**
+**Rehearsal guide: 2:55–4:00 (65 seconds)**
 
-### Narration
+### Speaker notes
 
-Let’s try the app. I’ll select Massachusetts and November, then an apartment in a building with five or more apartments. I’ll enter one thousand square feet for my apartment. The app updates to about three hundred thirty-eight kilowatt-hours, compared with four hundred seventy-nine for the state account average. I can open the calculation to see the profile factor and why the comparison uses Northeast homes. The dashed line shows where the forecast begins. I can download the calculation and supporting details. I’ll return to the slides to explain the remaining risks and next steps.
+Suppose I’m considering an apartment in Massachusetts. I select the state and November, choose a building with five or more apartments, and enter one thousand square feet for my own unit.
 
-### What to show
+The estimate is about three hundred thirty-eight kilowatt-hours for the month, compared with four hundred seventy-nine for the state account average.
 
-Clip B: record only the actual website for about 1:05. Slide 10 is a backup screenshot and notes page, not an extra narrated slide. Before recording, open the app, let it load, and choose a different starting profile so the changes are visible. 0–12 seconds: select Massachusetts using the map or dropdown and November 2026. 12–25 seconds: choose an apartment in a building with 5+ apartments and enter 1,000 sq ft. The app updates as fields change; use Update my estimate if needed. 25–35 seconds: point to 338 kWh and the 479 kWh state account average. 35–50 seconds: expand the calculation and matching evidence, showing factor 0.707 and the 17 Massachusetts / 149 Northeast matching records. 50–60 seconds: scroll to the dashed forecast boundary and point to the download control. 60–65 seconds: say the transition back to the slides. Keep estimates in their actual screen order; no staged reveal is required. The merged video reaches 3:45 here.
+The calculation multiplies the state average by a home-profile factor from similar survey homes. The matching panel explains why it uses Northeast records.
+
+Below, the solid line shows recorded state sales, and the dashed line marks the forecast. I can also download the estimate and its supporting details.
+
+That is the working prototype. The next question is how much confidence to place in the household number.
+
+### Demonstration / preparation cues
+
+Clip B. Record the actual website for 1:05; use it instead of narrating slide 10 again. Open https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/ and let it load before recording. 0–17 seconds: select Massachusetts on the map or dropdown, choose November 2026, choose Apartment — building with 5+ apartments, enter 1,000 sq ft for this apartment, and click Update my estimate. 17–30 seconds: point to about 338 kWh and the 479 kWh forecast state-account average. 30–45 seconds: open the calculation and matching details; show the 0.707 factor and the 17 Massachusetts / 149 Northeast records. 45–57 seconds: scroll to the state outlook, indicate the solid historical line, dashed forecast and forecast-start label, and point to the download control. 57–65 seconds: pause on the result and deliver the transition back to slides. Read the numbers actually shown. Slide 10 remains a backup image.
 
 <details>
-<summary>Sources and preparation notes</summary>
+<summary>Sources and context</summary>
 
 https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/ ; saved Sep–Nov 2026 snapshot. The displayed estimates round to 338 and 479 kWh. This is a household planning scenario, not a validated monthly prediction.
+Repository: https://github.com/Ghaida486/1.125_HomePulse-
+Code version: 608ea3bee773d9b31e8bcb2a5191d709a94c94c9
+Live app: https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/
+This slide is a backup. Prefer the actual live app for this 65-second clip. Screenshot is the verified November 18 release. Do not add a second demo slot.
 
 </details>
 
-## Slide 11: Remaining risks
+## Slide 11: Risks and planned responses
 
-**3:45–4:10 (25 seconds)**
+**Rehearsal guide: 4:00–4:20 (20 seconds)**
 
-### Narration
+### Speaker notes
 
-The main uncertainty is the household step. It transfers annual patterns from twenty-twenty into a monthly scenario. Actual use also depends on occupancy, equipment and weather. Survey support checks improve the evidence behind comparisons, but do not prove accuracy. The stronger seasonal baseline is another finding we need to address.
+The remaining external risks are data delays and temporary interruptions to EIA’s data service. I’ll refresh the data when new releases are available and keep the last validated dataset if an update fails. Next, I’ll show the improvements planned for the final submission.
 
-### What to show
+### Demonstration / preparation cues
 
-Clip C, slide 11. Begin this separate recording on the risks slide, immediately after the website clip in the final edit. Explain the three limitations for about 25 seconds. Keep the household accuracy distinction clear.
+Resume after the demo. Briefly describe the two external dependencies and the planned response to each. API-based updates and fallback handling are planned final-project work. Transition directly to slide 12. The model evaluation, baseline comparison and household validation limits remain on slide 9 and in the final-project evaluation plan.
 
 <details>
-<summary>Sources and preparation notes</summary>
+<summary>Sources and context</summary>
 
-docs/evaluation.md; README sections 6–7. The existing annual household diagnostic is not a validation of the public monthly output.
+Based on the project’s EIA data sources and planned EIA API integration on slide 12. Service interruption is a possible future operational risk, not a reported outage. Retaining a validated snapshot is a planned safeguard. This slide focuses on external dependencies; the state-to-household validation limits remain elsewhere in the deck.
+Repository: https://github.com/Ghaida486/1.125_HomePulse-
 
 </details>
 
 ## Slide 12: Next steps before the final submission
 
-**4:10–4:50 (40 seconds)**
+**Rehearsal guide: 4:20–4:50 (30 seconds)**
 
-### Narration
+### Speaker notes
 
-For the final project, I’ll add a Compare Two Homes mode, with side-by-side profiles, linked charts and a downloadable report. I’ll automate EIA updates with validation and a safe fallback. I’ll strengthen evaluation against the baseline and examine household errors by type and region. I’ll test state forecast uncertainty separately from household uncertainty, then automate checks through GitHub Actions, verify a fresh installation and test usability. These are the next development milestones.
+For the final submission, I’ll focus on three improvements.
+First, I’ll add Compare Two Homes, so users can compare options side by side and download the results.
+Second, I’ll automate EIA data updates, while keeping a working backup.
+Third, I’ll strengthen forecast testing by comparing predictions with a simple seasonal baseline and checking errors across states.
+If time allows, I’ll also test prediction ranges.
+My goal is a useful electricity planning tool for U.S. households. Thank you.
 
-### What to show
+### Demonstration / preparation cues
 
-Clip C, slide 12. Use about 12 seconds to describe the planned Compare Two Homes feature: two independently selected locations and home profiles, comparison charts and an exportable report. Use the remaining 28 seconds for the supporting coding work: API updates, stronger evaluation, tested uncertainty ranges and automated checks. All five are planned additions. Existing tests already run locally, while GitHub Actions automation is future work. End this clip after the slide. The combined target is 4:50, including the 1:05 live demo. Leave no extra narrated demo slide or long transitions.
+Close on the planned work. Give Compare Two Homes about 9 seconds, then cover data updates, evaluation and uncertainty. These are planned capabilities. Define practical error thresholds before further model selection; assess household uncertainty separately from state forecast intervals. API updates do not remove publication delays. End the final clip naturally without adding another summary slide.
 
 <details>
-<summary>Sources and preparation notes</summary>
+<summary>Sources and context</summary>
 
-The user approved Compare Two Homes as a planned final-project feature on November 18, 2026. It will compare planning scenarios by state, selected forecast month, home type and floor area. The planned feature includes two independent profiles, linked charts and a downloadable comparison report. Do not imply measured savings, causal effects or validated individual-home accuracy. User-approved final-development plan and Abel/John feedback. EIA API documentation: https://www.eia.gov/opendata/documentation.php . API integration, expanded evaluation, tested state-forecast intervals and GitHub Actions are planned additions, not completed capabilities. API updates must validate incoming data, retain dated source snapshots and preserve the previous working snapshot on failure. Define the baseline, metrics and useful error thresholds before further model selection. Use a predeclared later period or compatible independent data when available. Previously inspected test results remain exploratory for later tuning. Measure interval coverage on data separate from interval calibration. State forecast intervals do not establish uncertainty coverage for the household scenario. Household evaluation must account for survey weights and distinguish annual diagnostics from validation of monthly app estimates. Existing code tests will be reused in automated checks. API integration does not bypass EIA publication timing or by itself improve model accuracy.
+The user approved Compare Two Homes as a planned final-project feature on November 18, 2026. It will compare planning scenarios by state, selected forecast month, home type and floor area. The planned feature includes two independent profiles, linked charts and a downloadable comparison report. Do not imply measured savings, causal effects or validated individual-home accuracy. User-approved final-development plan and Abel/John feedback. EIA API documentation: https://www.eia.gov/opendata/documentation.php . API integration, expanded evaluation, tested state-forecast intervals are planned additions, not completed capabilities. API updates must validate incoming data, retain dated source snapshots and preserve the previous working snapshot on failure. Define the baseline, metrics and useful error thresholds before further model selection. Use a predeclared later period or compatible independent data when available. Previously inspected test results remain exploratory for later tuning. Measure interval coverage on data separate from interval calibration. State forecast intervals do not establish uncertainty coverage for the household scenario. Household evaluation must account for survey weights and distinguish annual diagnostics from validation of monthly app estimates. Existing implementation tests remain available in the repository. API integration does not bypass EIA publication timing or by itself improve model accuracy.
+Repository: https://github.com/Ghaida486/1.125_HomePulse-
+Live app: https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/
 
 </details>

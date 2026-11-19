@@ -1,95 +1,98 @@
 {
   "totalSeconds": 290,
-  "spokenWords": 552,
+  "recordedDurationSeconds": 297.165,
+  "recordedDurationDisplay": "4:57",
+  "timingBasis": "Rehearsal plan; not recorded chapter timestamps",
+  "spokenWords": 631,
   "clips": [
     {
       "clip": "A",
-      "content": "Slides 1–9",
-      "seconds": 160
+      "content": "Slides 1\u20139",
+      "seconds": 175
     },
     {
       "clip": "B",
-      "content": "Live website; replaces slide 10",
+      "content": "App demo / slide 10",
       "seconds": 65
     },
     {
       "clip": "C",
-      "content": "Slides 11–12",
-      "seconds": 65
+      "content": "Slides 11\u201312",
+      "seconds": 50
     }
   ],
   "slides": [
     {
       "title": "HomePulse midpoint check-in",
       "start": "0:00",
-      "end": "0:15",
-      "seconds": 15
+      "end": "0:10",
+      "seconds": 10
     },
     {
       "title": "Electricity planning before moving",
-      "start": "0:15",
+      "start": "0:10",
       "end": "0:35",
-      "seconds": 20
+      "seconds": 25
     },
     {
       "title": "The data behind the estimate",
       "start": "0:35",
-      "end": "0:50",
-      "seconds": 15
+      "end": "0:55",
+      "seconds": 20
     },
     {
       "title": "Working system architecture",
-      "start": "0:50",
-      "end": "1:05",
-      "seconds": 15
+      "start": "0:55",
+      "end": "1:15",
+      "seconds": 20
     },
     {
       "title": "Technologies used in HomePulse",
-      "start": "1:05",
-      "end": "1:25",
-      "seconds": 20
+      "start": "1:15",
+      "end": "1:33",
+      "seconds": 18
     },
     {
       "title": "Code: forecasting without the target answer",
-      "start": "1:25",
-      "end": "1:45",
-      "seconds": 20
+      "start": "1:33",
+      "end": "1:55",
+      "seconds": 22
     },
     {
       "title": "Code: selecting a supported household comparison",
-      "start": "1:45",
-      "end": "2:05",
+      "start": "1:55",
+      "end": "2:15",
       "seconds": 20
     },
     {
       "title": "Code: validating the public calculation",
-      "start": "2:05",
-      "end": "2:25",
-      "seconds": 20
-    },
-    {
-      "title": "Predicted versus actual state sales",
-      "start": "2:25",
-      "end": "2:40",
+      "start": "2:15",
+      "end": "2:30",
       "seconds": 15
     },
     {
-      "title": "Live app: estimate and matching evidence",
-      "start": "2:40",
-      "end": "3:45",
-      "seconds": 65
-    },
-    {
-      "title": "Remaining risks",
-      "start": "3:45",
-      "end": "4:10",
+      "title": "Predicted versus actual state sales",
+      "start": "2:30",
+      "end": "2:55",
       "seconds": 25
     },
     {
+      "title": "Live app demo",
+      "start": "2:55",
+      "end": "4:00",
+      "seconds": 65
+    },
+    {
+      "title": "Risks and planned responses",
+      "start": "4:00",
+      "end": "4:20",
+      "seconds": 20
+    },
+    {
       "title": "Next steps before the final submission",
-      "start": "4:10",
+      "start": "4:20",
       "end": "4:50",
-      "seconds": 40
+      "seconds": 30
     }
   ]
 }

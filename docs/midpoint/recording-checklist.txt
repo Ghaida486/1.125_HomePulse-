@@ -1,56 +1,33 @@
-HOMEPULSE — THREE-CLIP RECORDING GUIDE
-Updated November 18, 2026
-Target merged duration: 4:50 (keep within 4–5 minutes)
+HOMEPULSE — MIDPOINT RECORDING REFERENCE
+Updated November 18, 2026 to match the recorded video
 
-1. PREPARE
-Open the updated deck in presentation mode; keep speaker notes on your own screen.
-Open https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/ and let it load.
-Use the same microphone, screen size, zoom and recording dimensions for all three clips.
-Keep notification banners and unrelated browser tabs out of the recording.
-A separate GitHub recording is not needed: slides 6–8 show actual code excerpts.
-Submit the GitHub link alongside the video: https://github.com/Ghaida486/1.125_HomePulse-
+Recorded length: 4:57. The speaker-note plan is approximately 4:50;
+its timecodes are rehearsal cues, not exact video chapter markers.
 
-2. CLIP A — SLIDES 1–9 (2:40)
-0:00–0:15  Slide 1: HomePulse midpoint check-in.
-0:15–0:35  Slide 2: Electricity planning before moving.
-0:35–0:50  Slide 3: The data behind the estimate.
-0:50–1:05  Slide 4: Working system architecture.
-1:05–1:25  Slide 5: Technologies used in HomePulse.
-1:25–1:45  Slide 6: Code: forecasting without the target answer.
-1:45–2:05  Slide 7: Code: selecting a supported household comparison.
-2:05–2:25  Slide 8: Code: validating the public calculation.
-2:25–2:40  Slide 9: Predicted versus actual state sales.
-End with: “Now I’ll show the working website.” Stop recording.
+VIDEO SEQUENCE
+Slides 1–2: introduction, U.S. audience and electricity-planning problem.
+Slides 3–5: two data sources, working architecture and technologies.
+Slides 6–8: historical-feature safeguards, survey matching and browser validation.
+Slide 9: predicted versus actual state sales, including the seasonal baseline.
+Slide 10 / app demo: Massachusetts, November 2026, apartment in a building with
+5+ apartments, 1,000 sq ft for the individual unit. Show 338 kWh versus 479 kWh,
+the survey comparison group and the recorded-versus-forecast state outlook.
+Slide 11: data freshness and source availability, with planned responses.
+Slide 12: Compare two homes, EIA API integration, stronger evaluation and tested
+uncertainty ranges. Narration prioritizes the first three; ranges are time permitting.
 
-3. CLIP B — ACTUAL WEBSITE (1:05)
-Before recording, choose a different starting state/profile so your changes are visible.
-0–12 seconds: select Massachusetts and November 2026.
-12–25 seconds: choose Apartment: building with 5+ apartments; enter 1,000 sq ft for your own apartment.
-25–35 seconds: show approximately 338 kWh and the 479 kWh state account average.
-35–50 seconds: open the calculation and matching evidence; point to factor 0.707 and 17 Massachusetts / 149 Northeast records.
-50–60 seconds: show the dashed forecast boundary and download control. Download only if time allows.
-60–65 seconds: say “I’ll return to the slides to explain the remaining risks and next steps.” Stop recording.
-The app updates as fields change. Use Update my estimate if needed; do not plan a click-to-reveal effect.
-Slide 10 is your backup image and demo notes page. Do not record it as an extra narrated section.
-The merged video reaches 3:45 after the live demo.
+REPOSITORY AND SUBMISSION
+Project: https://github.com/Ghaida486/1.125_HomePulse-
+App: https://homepulse-energy-planner.aljuhanighaida.chatgpt.site/
+Share the recorded video using an accessible hosting link and submit that link
+alongside the repository link. The MP4 is not included in this repository package.
+Test video playback, sound and sharing permissions before submission.
 
-4. CLIP C — SLIDES 11–12 (1:05)
-First 25 seconds: remaining risks, including the separate uncertainty of the household scenario.
-Last 40 seconds: planned Compare Two Homes feature and supporting API, evaluation, uncertainty and automated-testing work.
-End here. Avoid repeating the introduction or demo.
-
-5. MERGE
-Place clip A, then clip B, then clip C.
-Cut silent starts/stops and accidental pauses. Use a direct cut or a very short fade.
-Check voice volume is consistent and slides/code are readable.
-If over 5 minutes, trim repeated wording and navigation pauses before speeding up narration.
-Watch the exported video once to check sound, sequence and duration.
-
-6. KEEP THE EXPLANATION ACCURATE
-State forecast R² does not validate individual household estimates.
-The seasonal baseline performed better overall on the saved state test.
-Survey support and Python/JavaScript agreement check parts of the implementation, not household prediction accuracy.
-The public app uses saved forecasts and group summaries; it does not retrain XGBoost as users edit the form.
-HTML, CSS and JavaScript form the public website. Plotly draws its map and charts. Streamlit is the local prototype.
-Compare Two Homes and the four supporting final-development improvements are planned. Existing tests run locally, while GitHub Actions automation is future work.
-RECS is the roughly four-yearly household survey; EIA state electricity-sales data is monthly.
+TECHNICAL CONTEXT
+The public app reads saved forecasts and group summaries; it does not retrain XGBoost.
+State-level R² does not validate individual household estimates.
+The seasonal baseline performs better overall on the saved historical state test.
+Survey support and Python/JavaScript agreement check implementation consistency.
+HTML/CSS/JavaScript power the public website; Plotly supplies its map and charts.
+Streamlit is the local prototype. EIA API refresh is planned, not yet implemented.
+RECS is the household survey; the EIA state electricity-sales data are monthly.

@@ -10,6 +10,8 @@ This README follows the midpoint structure provided by Abel and John: introducti
 pitch, technology, code, demo, risks and next steps. It describes the implementation
 completed so far and the evidence supporting it.
 
+**[Watch the midpoint check-in video (4:57)](https://www.youtube.com/watch?v=nplYGP2KTqo)**
+
 **Midpoint recording materials:** [PowerPoint with speaker notes](docs/midpoint/HomePulse_Deliverable_2_Final.pptx),
 [slides-only PDF](docs/midpoint/HomePulse_Deliverable_2_Final.pdf) and
 [4–5-minute script with live-demo cues](docs/midpoint/video-script.md).
